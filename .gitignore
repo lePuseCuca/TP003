@@ -1,3 +1,4 @@
 .settings
 target
 src/main/resources/env.properties
+secretaria_turismo.db
