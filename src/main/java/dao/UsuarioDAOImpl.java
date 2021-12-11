@@ -54,7 +54,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public int insert(Usuario usuario) { 
 		try {
-			String sql = "INSERT INTO usuarios (nombre, monedas, tiempo, tipo_preferido) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO usuarios (nombre, monedas, tiempo, tipo_preferido, clave, admin) VALUES (?, ?, ?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -62,6 +62,8 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			statement.setDouble(2, usuario.getPresupuesto());
 			statement.setDouble(3, usuario.getTiempo());
 			statement.setString(4, usuario.getTipoPreferido().toString());
+			statement.setString(5, usuario.getClave());
+			statement.setBoolean(6, usuario.isAdmin());
 						
 			int rows = statement.executeUpdate();
 
@@ -83,6 +85,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			statement.setDouble(3, usuario.getTiempo());
 			statement.setString(4, usuario.getTipoPreferido().toString());
 			statement.setString(5, usuario.getNombre());
+			
 						
 			int rows = statement.executeUpdate();
 
@@ -136,7 +139,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		return new Usuario(resultados.getString("nombre"), 
 				resultados.getDouble("monedas"),
 				resultados.getDouble("tiempo"),
-				Tipo.valueOf(resultados.getString("tipo_preferido")));
+				Tipo.valueOf(resultados.getString("tipo_preferido")), 
+				resultados.getString("clave"),
+				resultados.getBoolean("admin"));
 	}
 
 }
