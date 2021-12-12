@@ -8,8 +8,10 @@ import dao.AtraccionesDAO;
 import dao.DAOFactory;
 import dao.ItinerarioDAO;
 import dao.PromocionDAO;
+import model.Atraccion;
 import model.Itinerario;
 import model.Producto;
+import model.Promocion;
 import model.SecretariaTurismo;
 import model.Usuario;
 
@@ -43,6 +45,14 @@ public class ProductService {
 		}
 		
 		return productos;
+	}
+
+	public List<Promocion> promotionslist() {
+		return st.getPromociones();
+	}
+
+	public List<Atraccion> attractionslist() {
+		return st.getAtracciones();
 	}
 
 }

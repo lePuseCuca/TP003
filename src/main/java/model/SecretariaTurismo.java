@@ -19,6 +19,15 @@ public class SecretariaTurismo {
 		setProductos();
 	}
 	
+	public List<Atraccion> getAtracciones() {
+		List<Atraccion> resultado = new LinkedList<Atraccion>(this.atracciones.values());
+		return resultado;
+	}
+	
+	public List<Promocion> getPromociones() {
+		return this.promociones;
+	}
+	
 	private void setProductos() {
 		this.productos.putAll(this.atracciones);
 		for (Promocion promo : this.promociones)
