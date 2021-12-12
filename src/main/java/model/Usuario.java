@@ -35,6 +35,10 @@ public class Usuario {
 	public double getPresupuesto() {
 		return this.monedas;
 	}
+	
+	public double getMonedas() {
+		return this.monedas;
+	}
 
 	public double getTiempo() {
 		return this.tiempo;
