@@ -6,7 +6,7 @@ import model.Atraccion;
 
 public interface AtraccionesDAO extends GenericDAO<Atraccion>{
 	
-	public abstract Atraccion findAtraccionByNombre(String nombre);
+	public abstract Atraccion findAtraccionById(String id);
 	
 	public abstract Map<String, Atraccion> findAllAtracciones();
 }

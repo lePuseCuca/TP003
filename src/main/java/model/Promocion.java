@@ -9,8 +9,8 @@ public class Promocion extends Producto{
 	
 	public Promocion() {};
 	
-	public Promocion(String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo) {
-		super(nombre, tipo);
+	public Promocion(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo) {
+		super(id, nombre, tipo);
 		this.atracciones = atracciones;
 		this.tiempo = setTiempo(atracciones);		
 		this.tipoPromocion = tipoPromo;

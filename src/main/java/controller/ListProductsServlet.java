@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.List;
 
-import dao.DAOFactory;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.ServletException;
@@ -36,7 +35,7 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 		List<Producto> productos = productService.list(usuario);
 		req.setAttribute("productos", productos);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/usuario/index.jsp");
 		dispatcher.forward(req, resp);
 	}
 }

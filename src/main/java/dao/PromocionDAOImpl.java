@@ -79,14 +79,14 @@ public class PromocionDAOImpl implements PromocionDAO {
 	private Promocion toPromocion(ResultSet resultados, Map<String, Atraccion> atracciones) throws SQLException {
 		Promocion promoNueva = null;
 		
-		List<String> atraccionesPromo = findAtracionesPromo(resultados.getString("nombre"));
+		List<String> atraccionesPromo = findAtracionesPromo(resultados.getString("id"));
 		List<Atraccion> tempAt = new ArrayList<Atraccion>();
 		
 		boolean atraccionInexistente = false;
 		
-		for(String nombreAtr : atraccionesPromo)
-			if(atracciones.containsKey(nombreAtr))
-				tempAt.add(atracciones.get(nombreAtr));
+		for(String idAtr : atraccionesPromo)
+			if(atracciones.containsKey(idAtr))
+				tempAt.add(atracciones.get(idAtr));
 			else
 				atraccionInexistente = true; 
 		
@@ -96,6 +96,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 			if(!atraccionInexistente) {
 				try {
 					promoNueva = new PromocionPorcentual(
+							resultados.getString("id"),
 							resultados.getString("nombre"), 
 							TipoPromocion.valueOf(tipoPromo), 
 							tempAt,
@@ -112,11 +113,12 @@ public class PromocionDAOImpl implements PromocionDAO {
 			if(!atraccionInexistente) {
 				try {
 					promoNueva = new PromocionAbsoluta(
-								resultados.getString(1), 
-								TipoPromocion.valueOf(resultados.getString(2)), 
+								resultados.getString("id"),
+								resultados.getString("nombre"), 
+								TipoPromocion.valueOf(tipoPromo), 
 								tempAt,
-								Tipo.valueOf(resultados.getString(3)),
-								Double.parseDouble(resultados.getString(4)));
+								Tipo.valueOf(resultados.getString("tipo_atracciones")),
+								Double.parseDouble(resultados.getString("descuento")));
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ErrorDatosException e) {
@@ -125,13 +127,14 @@ public class PromocionDAOImpl implements PromocionDAO {
 			}
 			break;
 		case "AxB":			
-			if(!atraccionInexistente && atracciones.containsKey(resultados.getString(4))) {
+			if(!atraccionInexistente && atracciones.containsKey(resultados.getString("descuento"))) {
 				promoNueva = new PromocionAxB(
-						resultados.getString(1), 
-						TipoPromocion.valueOf(resultados.getString(2)), 
+						resultados.getString("id"),
+						resultados.getString("nombre"), 
+						TipoPromocion.valueOf(tipoPromo), 
 						tempAt,
-						atracciones.get(resultados.getString(4)),
-						Tipo.valueOf(resultados.getString(3)));
+						atracciones.get(resultados.getString("descuento")),
+						Tipo.valueOf(resultados.getString("tipo_atracciones")));
 			}
 			break;
 		}	
@@ -139,14 +142,14 @@ public class PromocionDAOImpl implements PromocionDAO {
 		return promoNueva;
 	}
 
-	private List<String> findAtracionesPromo(String nombre) {
+	private List<String> findAtracionesPromo(String id) {
 		try {
 			String sql = "SELECT id_atraccion \n"
 					+ "FROM promocion_atracciones\n"
 					+ "WHERE id_promocion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
+			statement.setString(1, id);
 			ResultSet resultados = statement.executeQuery();
 
 			List<String> atraccionesPromo = new LinkedList<String>();

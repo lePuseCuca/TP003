@@ -22,7 +22,7 @@ public class SecretariaTurismo {
 	private void setProductos() {
 		this.productos.putAll(this.atracciones);
 		for (Promocion promo : this.promociones)
-			this.productos.put(promo.getNombre(), promo);
+			this.productos.put(promo.getId(), promo);
 	}
 	
 	public Map<String, Producto> getProductos() {

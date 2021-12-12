@@ -25,7 +25,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			ResultSet resultados = statement.executeQuery();
 			Map<String, Atraccion> atracciones = new HashMap<String, Atraccion>();
 			while (resultados.next()) {
-				atracciones.put(resultados.getString("nombre"),toAtraccion(resultados));
+				atracciones.put(resultados.getString("id"),toAtraccion(resultados));
 			}
 
 			return atracciones;
@@ -54,15 +54,16 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int insert(Atraccion atr) {
 		try {
-			String sql = "INSERT INTO ATRACCIONES (NOMBRE, TIEMPO, COSTO, CUPO, TIPO) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ATRACCIONES (ID, NOMBRE, TIEMPO, COSTO, CUPO, TIPO) VALUES (?, ?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atr.getNombre());
-			statement.setDouble(2, atr.getTiempo());
-			statement.setDouble(3, atr.getCosto());
-			statement.setInt(4, atr.getCupo());
-			statement.setObject(5, atr.getTipo());
+			statement.setString(1, atr.getId());
+			statement.setString(2, atr.getNombre());
+			statement.setDouble(3, atr.getTiempo());
+			statement.setDouble(4, atr.getCosto());
+			statement.setInt(5, atr.getCupo());
+			statement.setObject(6, atr.getTipo());
 			
 			int rows = statement.executeUpdate();
 
@@ -75,12 +76,12 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int update(Atraccion atr) {
 		try {
-			String sql = "UPDATE ATRACCIONES SET CUPO = ? WHERE NOMBRE = ?";
+			String sql = "UPDATE ATRACCIONES SET CUPO = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setDouble(1, atr.getCupo());
-			statement.setString(2, atr.getNombre());
+			statement.setString(2, atr.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -92,11 +93,11 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int delete(Atraccion atr) {
 		try {
-			String sql = "DELETE FROM ATRACCIONES WHERE NOMBRE = ?";
+			String sql = "DELETE FROM ATRACCIONES WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atr.getNombre());
+			statement.setString(1, atr.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -106,12 +107,12 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	}
 
 	@Override
-	public Atraccion findAtraccionByNombre(String nombre) {
+	public Atraccion findAtraccionById(String id) {
 		try {
-			String sql = "SELECT * FROM ATRACCIONES WHERE NOMBRE = ?";
+			String sql = "SELECT * FROM ATRACCIONES WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
+			statement.setString(1, id);
 			ResultSet resultados = statement.executeQuery();
 
 			Atraccion atr = null;
@@ -127,11 +128,12 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	}
 	
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException, ErrorDatosException {
-		return new Atraccion(resultados.getString("nombre"), 
-							 resultados.getDouble("costo"),
-							 resultados.getDouble("tiempo"),
-							 resultados.getInt("cupo"),
-							 Tipo.valueOf(resultados.getString("tipo")));
+		return new Atraccion(resultados.getString("id"),
+							resultados.getString("nombre"), 
+							resultados.getDouble("costo"),
+							resultados.getDouble("tiempo"),
+							resultados.getInt("cupo"),
+							Tipo.valueOf(resultados.getString("tipo")));
 	}
 
 	@Override

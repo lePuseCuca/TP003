@@ -26,7 +26,7 @@ public class Itinerario {
 	public void addProducto(Producto producto) {
 		this.productos.add(producto);
 		if(!primeraCompra)
-			this.nuevosProductos.add(producto.getNombre());
+			this.nuevosProductos.add(producto.getId());
 	}
 	
 	public List<Producto> getProductos(){
