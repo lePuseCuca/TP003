@@ -70,7 +70,7 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 			for (Producto prod : it.getProductos()) {
 				statement.setString(1, it.getNombreUsuario());
-				statement.setString(2, prod.getNombre());
+				statement.setString(2, prod.getId());
 				totalInsertado += statement.executeUpdate();
 			}
 
@@ -89,9 +89,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			String sql = "INSERT INTO itinerarios (id_usuario, id_producto) VALUES (? , ?);";
 			PreparedStatement statement = conn.prepareStatement(sql);
 
-			for (String nombreProd : it.getNuevosProductos()) {
+			for (String idProd : it.getNuevosProductos()) {
 				statement.setString(1, it.getNombreUsuario());
-				statement.setString(2, nombreProd);
+				statement.setString(2, idProd);
 				totalInsertado += statement.executeUpdate();
 			}
 			return totalInsertado;

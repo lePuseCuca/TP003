@@ -6,8 +6,8 @@ public class PromocionPorcentual extends Promocion {
 
 	private double descuento;
 	
-	public PromocionPorcentual(String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, double descuento) throws ErrorDatosException {
-		super(nombre, tipoPromo, atracciones, tipo);
+	public PromocionPorcentual(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, double descuento) throws ErrorDatosException {
+		super(id, nombre, tipoPromo, atracciones, tipo);
 		if(validarDatoNumerico(descuento)) {
 			this.descuento = descuento;
 			this.setCosto();

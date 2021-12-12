@@ -4,16 +4,21 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Producto {
-	protected String nombre;
+	protected String id, nombre;
 	protected double costo;
 	protected double tiempo;
 	protected Tipo tipo;
 	
 	public Producto() {}
 	
-	public Producto(String nombre, Tipo tipo) {
+	public Producto(String id, String nombre, Tipo tipo) {
+		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
+	}
+	
+	public String getId() {
+		return this.id;
 	}
 
 	public Double getTiempo() {
