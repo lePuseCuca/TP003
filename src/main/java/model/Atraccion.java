@@ -6,9 +6,9 @@ public class Atraccion extends Producto {
 
 	private int cupo;
 
-	public Atraccion(String nombre, double costo, double tiempo, int cupo, Tipo tipo) throws ErrorDatosException {
+	public Atraccion(String id, String nombre, double costo, double tiempo, int cupo, Tipo tipo) throws ErrorDatosException {
 
-		super(nombre, tipo);
+		super(id, nombre, tipo);
 		if (validarDatoNumerico(costo) && validarDatoNumerico(tiempo) && validarDatoNumerico(cupo)) {
 			this.costo = costo;
 			this.tiempo = tiempo;

@@ -14,8 +14,8 @@ import services.LoginService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = -1052796851365601461L;
 	
+	private static final long serialVersionUID = -1052796851365601461L;
 	private LoginService loginService;
 
 	@Override
@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
     	
     	//if (!usuario.isNull()) {
     	if(usuario != null) {
-    		req.getSession().setAttribute("nombre", nombre);
-    		resp.sendRedirect("index.jsp");    		
+    		req.getSession().setAttribute("usuario", usuario);
+    		resp.sendRedirect("views/usuario/index.jsp");    		
        	} else {
     		req.setAttribute("flash", "Nombre de usuario o contraseña incorrectos");
     		

@@ -36,36 +36,6 @@
 		</tr>
 		</c:forEach>
 	</table>
-	
-	<table>
-		<c:forEach items="${promociones}" var="promocion">
-			<tr>
-				<td><strong><c:out value="${promocion.nombre}"></c:out></strong>
-				<td><c:out value="${promocion.costo}"></c:out></td>
-				<td><c:out value="${promocion.tiempo}"></c:out></td>
-				<td><c:forEach items="${promocion.atracciones}" var="atraccion">
-
-
-						<c:out value="${atraccion.nombre}"></c:out>
-		</c:forEach>
-		</td>
-		</tr>
-		</c:forEach>
-	</table>
-	
-		<table>
-		<c:forEach items="${atracciones}" var="atraccion">
-			<tr>
-				<td><strong><c:out value="${atraccion.nombre}"></c:out></strong>
-				<td><c:out value="${atraccion.costo}"></c:out></td>
-				<td><c:out value="${atraccion.tiempo}"></c:out></td>
-				<td><c:out value="${atraccion.tipo}"></c:out></td>
-				<td><c:out value="${atraccion.cupo}"></c:out></td>
-		</tr>
-		</c:forEach>
-	</table>
-	
-	
 </body>
 </html>
  

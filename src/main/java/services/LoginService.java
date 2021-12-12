@@ -10,13 +10,14 @@ public class LoginService {
 		UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
     	Usuario usuario = usuarioDao.findUsuarioByNombre(nombre);
     	
-    	if(!usuario.getClave().equals(clave)) {
-    		usuario = null;
+    	if(usuario != null)
+    		if (!usuario.getClave().equals(clave)) 
+    			usuario = null;
     	/*
     	if (usuario.isNull() || !usuario.checkClave(clave)) {
     		usuario = NullUsuario.build();
     		*/
-    	}
+    	
     	return usuario;
 	}
 }
