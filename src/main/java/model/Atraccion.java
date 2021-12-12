@@ -40,9 +40,10 @@ public class Atraccion extends Producto {
 	}
 
 	@Override
-	protected List<Atraccion> getAtracciones() {
+	public List<Atraccion> getAtracciones() {
 		return null;
 	}
+	
 
 	@Override
 	protected boolean venderProducto() {

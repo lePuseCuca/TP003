@@ -38,7 +38,7 @@ public abstract class Producto {
 	
 	protected abstract boolean hayCupo();
 	
-	protected abstract List<Atraccion> getAtracciones();
+	public abstract List<Atraccion> getAtracciones();
 	
 	protected abstract boolean venderProducto();
 	
