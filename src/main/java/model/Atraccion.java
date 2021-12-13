@@ -35,7 +35,7 @@ public class Atraccion extends Producto {
 		return false;
 	}
 
-	protected boolean hayCupo() {
+	public boolean hayCupo() {
 		return this.getCupo() > 0;
 	}
 
@@ -46,7 +46,7 @@ public class Atraccion extends Producto {
 	
 
 	@Override
-	protected boolean venderProducto() {
+	public boolean venderProducto() {
 		return this.restarCupo();
 	}
 

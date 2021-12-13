@@ -36,7 +36,7 @@ public class Promocion extends Producto{
 		this.costo = costoTotal;
 	}
 	
-	protected boolean hayCupo() {
+	public boolean hayCupo() {
 		for (Atraccion atr: atracciones)
 			if (atr.getCupo() <= 0 )
 				return false;
@@ -51,7 +51,7 @@ public class Promocion extends Producto{
 	}
 
 	@Override
-	protected boolean venderProducto() {
+	public boolean venderProducto() {
 		boolean vendible = true;
 		for (Atraccion atr: this.atracciones)
 			if (atr.getCupo() == 0)
