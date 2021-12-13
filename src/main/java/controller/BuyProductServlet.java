@@ -14,13 +14,14 @@ import model.Usuario;
 import services.ProductService;
 import services.UserService;
 
-@WebServlet("producto/buy.do")
+@WebServlet("/producto/buy.do")
 public class BuyProductServlet extends HttpServlet implements Servlet {
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 582414359746148493L;
+	private static final long serialVersionUID = 1822919876888031816L;
 	private ProductService productService;
 	private UserService userService;
 
@@ -34,9 +35,9 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String productoId = (String) req.getAttribute("id");
+		String productoId = (String) req.getParameter("id");
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-
+		
 		Map<String, String> errores = productService.buy(usuario, productoId);
 
 		Usuario usuarioActualizado = userService.find(usuario.getNombre());

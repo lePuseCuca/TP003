@@ -63,7 +63,7 @@ public class ProductService {
 		Map<String, String> errores = new HashMap<String, String>();
 		Producto producto = st.getProductos().get(productoId);
 		UserService userService = new UserService();
-		
+				
 		if (!producto.hayCupo()) {
 			errores.put("producto", "No hay cupo disponible");
 		} else if (usuario.getPresupuesto() < producto.getCosto()) {
