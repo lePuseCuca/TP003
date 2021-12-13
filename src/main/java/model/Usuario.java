@@ -85,6 +85,9 @@ public class Usuario {
 
 	// ---------------
 
+	/*
+	 * Este método quedó obsoleto
+	 * */
 	public boolean comprarItinerario(double costoCompra, double tiempoCompra) {
 		if (costoCompra <= this.monedas && tiempoCompra <= this.tiempo) {
 			this.monedas -= costoCompra;
@@ -108,4 +111,9 @@ public class Usuario {
 	 * 
 	 * }
 	 */
+
+	public void comprarProducto(Producto producto) {
+		this.monedas -= producto.getCosto();
+		this.tiempo -= producto.getTiempo();		
+	}
 }
