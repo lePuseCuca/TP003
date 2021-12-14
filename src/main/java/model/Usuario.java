@@ -83,20 +83,6 @@ public class Usuario {
 		this.admin = admin;
 	}
 
-	// ---------------
-
-	/*
-	 * Este método quedó obsoleto
-	 * */
-	public boolean comprarItinerario(double costoCompra, double tiempoCompra) {
-		if (costoCompra <= this.monedas && tiempoCompra <= this.tiempo) {
-			this.monedas -= costoCompra;
-			this.tiempo -= tiempoCompra;
-			return true;
-		}
-		return false;
-	}
-
 	private boolean validarDato(double dato) {
 		return (dato >= 0);
 	}

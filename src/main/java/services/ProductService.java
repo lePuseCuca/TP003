@@ -74,13 +74,20 @@ public class ProductService {
 		
 		if (errores.isEmpty()) {
 			producto.venderProducto();
-			this.gestorItinerarios.update(
-					this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos()));
 			usuario.comprarProducto(producto);
+			
+			Itinerario it = this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos());
+			if (it == null) it = new Itinerario(usuario.getNombre());
+			
+			it.addProducto(producto);
+			this.gestorItinerarios.update(it);
+			
 			userService.update(usuario);
 			
 			if (producto.esPromocion()) {
-				this.gestorPromociones.update((Promocion) producto);
+				for (Atraccion atraccion : producto.getAtracciones()) {
+					this.gestorAtracciones.update(atraccion);
+				}
 			} else {
 				this.gestorAtracciones.update((Atraccion) producto);
 			}
