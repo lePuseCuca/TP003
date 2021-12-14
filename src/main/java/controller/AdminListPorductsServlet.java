@@ -35,7 +35,7 @@ public class AdminListPorductsServlet extends HttpServlet implements Servlet {
 		List<Atraccion> atracciones = productService.attractionslist();
 		req.setAttribute("atracciones", atracciones);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/dashboard.jsp");
 		dispatcher.forward(req, resp);
 	}
 }
