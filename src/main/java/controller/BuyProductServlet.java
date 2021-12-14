@@ -17,10 +17,6 @@ import services.UserService;
 @WebServlet("/producto/buy.do")
 public class BuyProductServlet extends HttpServlet implements Servlet {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1822919876888031816L;
 	private ProductService productService;
 	private UserService userService;
@@ -50,7 +46,7 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 			req.setAttribute("flash", "No ha podido realizarse la compra");
 		}
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/attractions/index.do");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/usuario/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}
