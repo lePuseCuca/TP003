@@ -14,7 +14,7 @@
 		<jsp:include page="/partials/nav.jsp"></jsp:include>
 	</header>
 	<main class="container">
-		
+
 		<h2>Panel de administración</h2>
 
 		<h3>
@@ -35,24 +35,72 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${atracciones}" var="atraccion">
+				<c:forEach items="${atracciones}" var="atraccion">
+					<tr>
+						<td><b><c:out value="${atraccion.id}"></c:out></b></td>
+						<td><c:out value="${atraccion.nombre}"></c:out></td>
+						<td><c:out value="${atraccion.cupo}"></c:out></td>
+						<td>$<c:out value="${atraccion.costo}"></c:out></td>
+						<td><c:out value="${atraccion.tiempo}"></c:out> hs.</td>
+						<td><span
+							class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(atraccion.tipo), 0, 3)}"></c:out>">
+								<c:out value="${atraccion.tipo}"></c:out>
+						</span></td>
+						<td><a href="#"><i
+								class="fas fa-pen-square fs-4 text-warning"></i> </a> <a href="#"><i
+								class="fas fa-trash fs-4 text-danger"></i></a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<h3>
+			Promociones <a class="btn btn-primary btn-lg btn-floating"
+				style="background-color: #ac2bac;" href="#!" role="button"><i
+				class="fas fa-plus"></i></a>
+		</h3>
+		<table class="table table-striped">
+			<thead>
 				<tr>
-                    <td><b><c:out value="${atraccion.id}"></c:out></b></td>
-                    <td><c:out value="${atraccion.nombre}"></c:out></td>
-                    <td><c:out value="${atraccion.cupo}"></c:out></td>
-                    <td>$<c:out value="${atraccion.costo}"></c:out></td>
-                    <td><c:out value="${atraccion.tiempo}"></c:out> hs.</td>
-                    <td><span class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(atraccion.tipo), 0, 3)}"></c:out>"> <c:out value="${atraccion.tipo}"></c:out></span></td>
-                    <td>
-                        <a href="#"><i class="fas fa-pen-square fs-4 text-warning"></i> </a>
-                        <a href="#"><i class="fas fa-trash fs-4 text-danger"></i></a>
-                    </td>
-                </tr>
-			</c:forEach>
+					<td>ID</td>
+					<td>TIPO PROMOCION</td>
+					<td>NOMBRE</td>
+					<td>ATRACCIONES</td>
+					<td>COSTO</td>
+					<td>DESCUENTO</td>
+					<td>TIPO</td>
+					<td>OPCIONES</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${promociones}" var="promocion">
+					<tr>
+						<td><b><c:out value="${promocion.id}"></c:out></b></td>
+						<td><c:out value="${promocion.tipoPromocion}"></c:out></td>
+						<td><c:out value="${promocion.nombre}"></c:out></td>
+						<td><c:forEach items="${promocion.atracciones}" var="atr">
+								<span
+									class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(atr.tipo), 0, 3)}"></c:out>"><c:out
+										value="${atr.nombre}"></c:out></span>
+								<br>
+							</c:forEach>
+						</td>
+						<td>$ <c:out value="${promocion.costo}"></c:out></td>
+						<td> Descuento?</td>
+						<td><span
+							class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(promocion.tipo), 0, 3)}"></c:out>">
+								<c:out value="${promocion.tipo}"></c:out>
+						</span></td>
+						<td><a href="#"><i
+								class="fas fa-pen-square fs-4 text-warning"></i> </a> <a href="#"><i
+								class="fas fa-trash fs-4 text-danger"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+
 			</tbody>
 		</table>
 	</main>
-	
+
 
 </body>
 </html>
