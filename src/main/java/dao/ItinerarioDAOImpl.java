@@ -88,15 +88,15 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			Connection conn = ConnectionProvider.getConnection();
 			String sql = "INSERT INTO itinerarios (id_usuario, id_producto) VALUES (? , ?);";
 			PreparedStatement statement = conn.prepareStatement(sql);
-
-			for (Producto producto : it.getProductos()) {
+			Producto producto = it.getProductos().get(it.getProductos().size()-1);
+//			for (Producto producto : it.getProductos()) {
 				statement.setString(1, it.getNombreUsuario());
 				statement.setString(2, producto.getId());
-				totalInsertado += statement.executeUpdate(); // falló con el siguiente error
+				totalInsertado = statement.executeUpdate(); // falló con el siguiente error
 				//dao.MissingDataException: org.sqlite.SQLiteException: 
 				//[SQLITE_CONSTRAINT_PRIMARYKEY]  A PRIMARY KEY constraint failed 
 				//(UNIQUE constraint failed: itinerarios.id_usuario, itinerarios.id_producto)
-			}
+//			}
 			return totalInsertado;
 		} catch (Exception e) {
 			throw new MissingDataException(e);

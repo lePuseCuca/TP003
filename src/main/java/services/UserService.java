@@ -12,7 +12,7 @@ public class UserService {
 	}
 
 	public Usuario find(String nombre) {
-		this.gestorUsuarios.findUsuarioByNombre(nombre);
-		return null;
+		return this.gestorUsuarios.findUsuarioByNombre(nombre);
+		
 	}
 }

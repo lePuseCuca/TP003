@@ -38,16 +38,21 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 
 		Usuario usuarioActualizado = userService.find(usuario.getNombre());
 		req.getSession().setAttribute("usuario", usuarioActualizado);
+		
+		System.out.println(usuarioActualizado.getNombre());
 
 		if (errores.isEmpty()) {
-			req.setAttribute("flash", "¡Gracias por comprar!");
+			//req.setAttribute("flash", "¡Gracias por comprar!");
+			resp.sendRedirect("/TP003-LPC/listProducts.do?flash=¡Gracias por comprar!");
 		} else {
 			req.setAttribute("errors", errores);
 			req.setAttribute("flash", "No ha podido realizarse la compra");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("listProducts.do");
+			dispatcher.forward(req, resp);
 		}
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listProducts.do");
-		dispatcher.forward(req, resp);
+		//resp.sendRedirect("listProducts.do");
+		
 
 	}
 

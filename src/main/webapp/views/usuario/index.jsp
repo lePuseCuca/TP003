@@ -29,11 +29,11 @@
 								<c:choose>
 									<c:when test="${producto.esPromocion()}">
 										<img
-											src="assets/img/${fn:replace(fn:toLowerCase(producto.atracciones[0].nombre), ' ', '_')}.jpg" />
+											src="/TP003-LPC/assets/img/${fn:replace(fn:toLowerCase(producto.atracciones[0].nombre), ' ', '_')}.jpg" />
 									</c:when>
 									<c:otherwise>
 										<img
-											src="assets/img/${fn:replace(fn:toLowerCase(producto.nombre), ' ', '_')}.jpg" />
+											src="/TP003-LPC/assets/img/${fn:replace(fn:toLowerCase(producto.nombre), ' ', '_')}.jpg" />
 									</c:otherwise>
 								</c:choose>
 								<a href="#!">
@@ -63,7 +63,7 @@
 										$ <c:out value="${producto.costo}"></c:out></span> 
 										<span class="badge bg-info"><i class="fas fa-clock"></i> 
 										<c:out value="${producto.tiempo}"></c:out> hs.</span>
-									<a href="producto/buy.do?id=<c:out value="${producto.id}"></c:out>"><span
+									<a href="/TP003-LPC/producto/buy.do?id=<c:out value="${producto.id}"></c:out>"><span
 											class="badge bg-success">COMPRAR</span></a>
 								</div>
 
