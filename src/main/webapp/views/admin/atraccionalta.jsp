@@ -21,6 +21,11 @@
 			<h1 class="fs-4 text-center">Agregar atracción</h1>
 			<form action="#" method="POST">
 				<div class="form-group">
+					<label for="nombre">Id</label> <input type="text" name="id" id="id"
+						class="form-control" placeholder="Ingresa el id de la atracción"
+						required value="${atraccion.id}"></input>
+				</div>
+				<div class="form-group">
 					<label for="nombre">Nombre</label> <input type="text" name="nombre"
 						id="nombre" class="form-control"
 						placeholder="Ingresa el nombre de la atracción" required
@@ -28,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<label for="tiempo">Tiempo</label> <input type="number"
-						name="tiempo" id="costo" class="form-control"
+						name="tiempo" id="tiempo" class="form-control"
 						placeholder="Ingresa el tiempo de la atracción" required
 						value="${atraccion.tiempo}"></input>
 				</div>
@@ -50,7 +55,7 @@
 					<label for="tipo">Tipo</label> <select name="tipo" id="tipo"
 						class="form-control">
 
-						<option value="${tipo.nombre}"></option>
+						<option value="${atraccion.tipo}"></option>
 					</select>
 					<!-- /c:forEach -->
 				</div>
