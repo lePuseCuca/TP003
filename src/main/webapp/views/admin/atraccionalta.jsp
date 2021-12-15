@@ -19,7 +19,7 @@
 	<main class="container-fluid">
 		<div class="row col-8 col-md-5 col-sm-6 col-lg-4 mx-auto">
 			<h1 class="fs-4 text-center">Agregar atracción</h1>
-			<form action="#" method="POST">
+			<form action="/TP003-LPC/atraccion/new.do" method="POST">
 				<div class="form-group">
 					<label for="nombre">Id</label> 
 					<input type="text" name="id" id="id"
