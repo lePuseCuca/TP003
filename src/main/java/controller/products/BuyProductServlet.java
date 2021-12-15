@@ -1,4 +1,4 @@
-package controller;
+package controller.products;
 
 import java.io.IOException;
 import java.util.Map;

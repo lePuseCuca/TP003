@@ -1,4 +1,4 @@
-package controller;
+package controller.itineraries;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package controller;
+package controller.attractions;
 
 import java.io.IOException;
 
