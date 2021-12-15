@@ -1,4 +1,5 @@
 package controller;
+
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -42,26 +43,26 @@ public class CreateAttractionServlet extends HttpServlet {
 		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
 		// COMO CONFIGURO EL ENUM?? ESTA OK??
 		Tipo tipo = Tipo.valueOf(req.getParameter("tipo"));
-		//Boolean disponible = Boolean.parseBoolean(req.getParameter("disponible"));
+		// Boolean disponible = Boolean.parseBoolean(req.getParameter("disponible"));
 		Boolean disponible = true;
 
 		Atraccion atraccion = null;
-		/*try {
+		try {
 			atraccion = attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible);
 		} catch (ErrorDatosException e) {
-			*
+
 			e.printStackTrace();
 		}
-	*/
+
 		// if (attraction.isValid()) {
-		/*if (atraccion != null) {
+		if (atraccion != null) {
 			resp.sendRedirect("/TP003-LPC/adminListProducts.do");
 		} else {
 			req.setAttribute("atraccion", atraccion);
-*/
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("views/admin/atraccionalta.jsp");
+
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/atraccionalta.jsp");
 			dispatcher.forward(req, resp);
-	//	}
+		}
 
 	}
 

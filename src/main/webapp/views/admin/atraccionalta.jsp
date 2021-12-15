@@ -46,7 +46,7 @@
 						value="<c:out value="${atraccion.costo}"></c:out>" />
 				</div>
 				<div class="form-group">
-					<label for="cupo">Cupo</label> <input type="number" name="costo"
+					<label for="cupo">Cupo</label> <input type="number" name="cupo"
 						id="cupo" class="form-control"
 						placeholder="Ingresa el cupo de la atracción" required
 						value="<c:out value="${atraccion.cupo}"></c:out>" />

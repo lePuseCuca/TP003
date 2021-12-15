@@ -21,7 +21,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public Map<String, Atraccion> findAllAtracciones() {
 		try {
-			String sql = "SELECT * FROM ATRACCIONES WHERE DISPONIBLE = 1";
+			String sql = "SELECT * FROM ATRACCIONES";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -57,7 +57,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int insert(Atraccion atr) {
 		try {
-			String sql = "INSERT INTO ATRACCIONES (ID, NOMBRE, TIEMPO, COSTO, CUPO, TIPO, DISPONIBLE) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ATRACCIONES (ID, NOMBRE, TIEMPO, COSTO, CUPO, TIPO, DISPONIBLE) VALUES (?, ?, ?, ?, ?, ?, 1)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -67,7 +67,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			statement.setDouble(4, atr.getCosto());
 			statement.setInt(5, atr.getCupo());
 			statement.setObject(6, atr.getTipo());
-			statement.setBoolean(7, atr.isDisponible());
+			//statement.setBoolean(7, atr.isDisponible());
 
 			int rows = statement.executeUpdate();
 
