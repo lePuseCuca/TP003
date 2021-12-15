@@ -1,4 +1,4 @@
-
+package controller;
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -8,11 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Atraccion;
+import model.ErrorDatosException;
 import model.Tipo;
 import services.AttractionService;
 
 //PONER VIEWS/ADMIN/ATRACCIONALTA.DO
-@WebServlet("views/admin/atraccionalta.jsp")
+@WebServlet("/atraccion/new.do")
 public class CreateAttractionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -2211779761371322145L;
@@ -43,10 +44,16 @@ public class CreateAttractionServlet extends HttpServlet {
 		Tipo tipo = Tipo.valueOf(req.getParameter("tipo"));
 		Boolean disponible = Boolean.parseBoolean(req.getParameter("disponible"));
 
-		Atraccion atraccion = attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible);
+		Atraccion atraccion = null;
+		try {
+			atraccion = attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible);
+		} catch (ErrorDatosException e) {
+			 
+			e.printStackTrace();
+		}
 		// if (attraction.isValid()) {
 		if (atraccion != null) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+			resp.sendRedirect("/TP003-LPC/adminListProducts.do");
 		} else {
 			req.setAttribute("attraction", atraccion);
 
