@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,33 +10,71 @@
 <jsp:include page="/partials/head.jsp"></jsp:include>
 </head>
 <body>
-<header>
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
-</header>
-	<h2>Hello World!</h2>
-	<br>
-	<div>
+	<header>
+		<jsp:include page="/partials/nav.jsp"></jsp:include>
+	</header>
+	<main class="container-fluid">
+		<section id="destacados" class="container">
+			<c:set var="active" value="active" />
+			<c:set var="preferidos" value="<h2>Basados en tus preferencias</h2>" />
+			<div id="atracciones" class="row g-3">
+				<h2>Basados en tus preferencias</h2>
+				<c:forEach items="${productos}" var="producto">
+					
+					<c:if test="${usuario.monedas >= producto.costo && usuario.tiempo >= producto.tiempo}">
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="card text-center">
+							<div class="bg-image hover-overlay ripple"
+								data-mdb-ripple-color="light">
+								<c:choose>
+									<c:when test="${producto.esPromocion()}">
+										<img
+											src="/TP003-LPC/assets/img/${fn:replace(fn:toLowerCase(producto.atracciones[0].nombre), ' ', '_')}.jpg" />
+									</c:when>
+									<c:otherwise>
+										<img
+											src="/TP003-LPC/assets/img/${fn:replace(fn:toLowerCase(producto.nombre), ' ', '_')}.jpg" />
+									</c:otherwise>
+								</c:choose>
+								<a href="#!">
+									<div class="mask"
+										style="background-color: rgba(251, 251, 251, 0.15)"></div>
+								</a>
 
-		<c:out value="${productos}"></c:out>
-	</div>
+							</div>
+							<div class="card-header">
+															<c:if test="${producto.esPromocion() }">
+										<span
+									class="badge rounded-pill pill-promo">PROMOCION</span>	
+								</c:if>
+							
+								<span
+									class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(producto.tipo), 0, 3)}"></c:out>">
+										<c:out value="${producto.tipo}"></c:out>
+									</span>
+							</div>
+							<div class="card-body">
+								<h5 class="card-title">${producto.nombre}</h5>
+								<p class="card-text">Lorem ipsum dolor sit amet consectetur
+									adipisicing elit. Error vel in nisi magnam neque ducimus
+									sapiente aliquam pariatur nostrum ab?</p>
+								<div style="font-size: 1.2rem;">
+									<span class="badge bg-info"><i class="fas fa-coins"></i>
+										$ <c:out value="${producto.costo}"></c:out></span> 
+										<span class="badge bg-info"><i class="fas fa-clock"></i> 
+										<c:out value="${producto.tiempo}"></c:out> hs.</span>
+									<a href="/TP003-LPC/producto/buy.do?id=<c:out value="${producto.id}"></c:out>"><span
+											class="badge bg-success">COMPRAR</span></a>
+								</div>
 
-	<br>
+							</div>
+						</div>
+					</div>
+					</c:if>
+				</c:forEach>
+			</div>
+		</section>
+	</main>
 
-	<table>
-		<c:forEach items="${productos}" var="producto">
-			<tr>
-				<td><strong><c:out value="${producto.nombre}"></c:out></strong>
-				<td><c:out value="${producto.costo}"></c:out></td>
-				<td><c:out value="${producto.tiempo}"></c:out></td>
-				<td><c:forEach items="${producto.atracciones}" var="atraccion">
-
-
-						<c:out value="${atraccion.nombre}"></c:out>
-		</c:forEach>
-		</td>
-		</tr>
-		</c:forEach>
-	</table>
 </body>
 </html>
- 

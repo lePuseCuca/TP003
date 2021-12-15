@@ -9,4 +9,5 @@ import model.Promocion;
 public interface PromocionDAO extends GenericDAO<Promocion> {
 		
 	public abstract List<Promocion> findAll(Map<String, Atraccion> atracciones);
+
 }

@@ -1,8 +1,10 @@
 package services;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import dao.AtraccionesDAO;
 import dao.DAOFactory;
@@ -21,29 +23,30 @@ public class ProductService {
 	private PromocionDAO gestorPromociones = DAOFactory.getPromocionDAO();
 	private ItinerarioDAO gestorItinerarios = DAOFactory.getItinerarioDAO();
 	private SecretariaTurismo st;
-	
+
 	public ProductService() {
 		this.st = new SecretariaTurismo(this.gestorAtracciones.findAllAtracciones(),
 				this.gestorPromociones.findAll(this.gestorAtracciones.findAllAtracciones()));
 	}
-	
-	//Refactorizar nombre de variables!
+
+	// Refactorizar nombre de variables!
 	public List<Producto> list(Usuario usuario) {
-			
+
 		List<Producto> productos = new LinkedList<Producto>();
 		Itinerario itinerario = this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos());
 		// 1° crear NullItinerario.java
-		if (itinerario == null) itinerario = new Itinerario(usuario.getNombre());
-		
+		if (itinerario == null)
+			itinerario = new Itinerario(usuario.getNombre());
+
 		Iterator<Producto> itr = st.getProductosParaUsuario(usuario).iterator();
-		
+
 		while (itr.hasNext()) {
 			Producto producto = itr.next();
 			if (!st.atraccionComprada(producto, itinerario.getProductos())) {
 				productos.add(producto);
 			}
 		}
-		
+
 		return productos;
 	}
 
@@ -55,4 +58,41 @@ public class ProductService {
 		return st.getAtracciones();
 	}
 
+	public Map<String, String> buy(Usuario usuario, String productoId) {
+		
+		Map<String, String> errores = new HashMap<String, String>();
+		Producto producto = st.getProductos().get(productoId);
+		UserService userService = new UserService();
+				
+		if (!producto.hayCupo()) {
+			errores.put("producto", "No hay cupo disponible");
+		} else if (usuario.getPresupuesto() < producto.getCosto()) {
+			errores.put("user", "No tienes dinero suficiente");
+		} else if (usuario.getTiempo() < producto.getTiempo()) {
+			errores.put("user", "No tienes tiempo suficiente");
+		}
+		
+		if (errores.isEmpty()) {
+			producto.venderProducto();
+			usuario.comprarProducto(producto);
+			
+			Itinerario it = this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos());
+			if (it == null) it = new Itinerario(usuario.getNombre());
+			
+			it.addProducto(producto);
+			this.gestorItinerarios.update(it);
+			
+			userService.update(usuario);
+			
+			if (producto.esPromocion()) {
+				for (Atraccion atraccion : producto.getAtracciones()) {
+					this.gestorAtracciones.update(atraccion);
+				}
+			} else {
+				this.gestorAtracciones.update((Atraccion) producto);
+			}
+		}
+ 	
+		return errores;
+	}
 }
