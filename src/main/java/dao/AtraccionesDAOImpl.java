@@ -16,6 +16,8 @@ import java.sql.SQLException;
 
 public class AtraccionesDAOImpl implements AtraccionesDAO {
 
+	// CHEQUEAR SI EL WHERE DISPONIBLE PARA VALIDAR EN LA BASE ESTA OK
+
 	@Override
 	public Map<String, Atraccion> findAllAtracciones() {
 		try {
@@ -25,7 +27,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			ResultSet resultados = statement.executeQuery();
 			Map<String, Atraccion> atracciones = new HashMap<String, Atraccion>();
 			while (resultados.next()) {
-				atracciones.put(resultados.getString("id"),toAtraccion(resultados));
+				atracciones.put(resultados.getString("id"), toAtraccion(resultados));
 			}
 
 			return atracciones;
@@ -33,11 +35,12 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			throw new MissingDataException(e);
 		}
 	}
-
+			
+	// AQUI LO MISMO, CHEQUEAR SI DISPONIBLE = 1 ESTA OK
 	@Override
 	public int countAll() {
 		try {
-			String sql = "SELECT COUNT(1) AS TOTAL FROM ATRACCIONES";
+			String sql = "SELECT COUNT(1) AS TOTAL FROM ATRACCIONES WHERE DISPONIBLE = 1";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -54,7 +57,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int insert(Atraccion atr) {
 		try {
-			String sql = "INSERT INTO ATRACCIONES (ID, NOMBRE, TIEMPO, COSTO, CUPO, TIPO) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO ATRACCIONES (ID, NOMBRE, TIEMPO, COSTO, CUPO, TIPO, DISPONIBLE) VALUES (?, ?, ?, ?, ?, ?, 1)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -64,7 +67,8 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			statement.setDouble(4, atr.getCosto());
 			statement.setInt(5, atr.getCupo());
 			statement.setObject(6, atr.getTipo());
-			
+			//statement.setBoolean(7, atr.isDisponible());
+
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -89,15 +93,19 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			throw new MissingDataException(e);
 		}
 	}
+	
+	//ESTA OK EL BORRADO DE ESTA MANERA? USANDO EL DISPONIBLE Y SETEANDO EN FALSE??
 
 	@Override
 	public int delete(Atraccion atr) {
 		try {
-			String sql = "DELETE FROM ATRACCIONES WHERE ID = ?";
+			//String sql = "DELETE FROM ATRACCIONES WHERE ID = ?";
+			String sql = "UPDATE ATRACCIONES SET DISPONIBLE = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atr.getId());
+			statement.setBoolean(1, false);
+			statement.setString(2, atr.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -126,14 +134,10 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			throw new MissingDataException(e);
 		}
 	}
-	
+
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException, ErrorDatosException {
-		return new Atraccion(resultados.getString("id"),
-							resultados.getString("nombre"), 
-							resultados.getDouble("costo"),
-							resultados.getDouble("tiempo"),
-							resultados.getInt("cupo"),
-							Tipo.valueOf(resultados.getString("tipo")));
+		return new Atraccion(resultados.getString("id"), resultados.getString("nombre"), resultados.getDouble("tiempo"), resultados.getDouble("costo"),
+				resultados.getInt("cupo"), Tipo.valueOf(resultados.getString("tipo")), resultados.getBoolean("disponible"));
 	}
 
 	@Override
@@ -141,5 +145,5 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
