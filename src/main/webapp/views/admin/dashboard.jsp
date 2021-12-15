@@ -37,7 +37,7 @@
 				role="tabpanel" aria-labelledby="ex1-tab-1">
 				<h3>
 					Atracciones <a class="btn btn-primary btn-lg btn-floating"
-						style="background-color: #ac2bac;" href="#!" role="button"><i
+						style="background-color: #ac2bac;" href="/TP003-LPC/atraccion/new.do" role="button"><i
 						class="fas fa-plus"></i></a>
 				</h3>
 				<table class="table table-striped">
