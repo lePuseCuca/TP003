@@ -28,7 +28,17 @@ public class Itinerario {
 		return this.idUsuario;
 	}
 	
+	public double getTiempo() {
+		return this.calcularTiempoItinerario();
+	}
+	public double getCosto() {
+		return this.calcularCostoItinerario();
+	}
 	
+	public String getIdUsuario() {
+		return idUsuario;
+	}
+
 	@Override
 	public String toString() {
 		String resumen = "";
