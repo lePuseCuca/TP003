@@ -41,7 +41,7 @@
 				 
 				 <li><span class="dropdown-item text-center fs-5"><c:out value='${usuario.nombre}'></c:out></span></li>
 				 <li><hr class="dropdown-divider" /></li>
-				<li><a class="dropdown-item" href="#"><i
+				<li><a class="dropdown-item" href="/TP003-LPC/itinerario.do"><i
 						class="fas fa-map text-secondary"></i> Itinerario</a></li>
 				<li>
                             <a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Mi perfil</a>

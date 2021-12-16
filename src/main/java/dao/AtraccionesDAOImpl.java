@@ -78,7 +78,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int update(Atraccion atr) {
 		try {
-			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, TIEMPO = ? COSTO = ?, CUPO = ?, TIPO = ? WHERE ID = ?";
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, TIEMPO = ?, COSTO = ?, CUPO = ?, TIPO = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);

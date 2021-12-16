@@ -55,6 +55,10 @@ public class Usuario {
 	public Boolean isAdmin() {
 		return this.admin;
 	}
+	
+	public Boolean getAdmin() {
+		return this.admin;
+	}
 
 	// ----------
 
