@@ -129,7 +129,8 @@
 				aria-labelledby="ex1-tab-3">
 				<h3>
 					Usuarios <a class="btn btn-primary btn-lg btn-floating"
-						style="background-color: #ac2bac;" href="#!" role="button"><i
+						style="background-color: #ac2bac;"
+						href="/TP003-LPC/usuario/new.do" role="button"><i
 						class="fas fa-plus"></i></a>
 				</h3>
 				<table class="table table-striped">
@@ -158,21 +159,23 @@
 										<c:out value="${usuario.tipoPreferido}"></c:out>
 								</span></td>
 
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${usuario.admin}">
 											SI
 										</c:when>
 										<c:otherwise>
 											NO
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 
-								<td><a href="/TP003-LPC/itinerario.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>" title="Ver itinerario de <c:out value="${usuario.nombre}"></c:out>"><i
-										class="far fa-map fs-4 text-info"></i> </a> <a href="#" 	title="Editar"> <i
+								<td><a
+									href="/TP003-LPC/itinerario.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>"
+									title="Ver itinerario de <c:out value="${usuario.nombre}"></c:out>"><i
+										class="far fa-map fs-4 text-info"></i> </a> <a
+									href="/TP003-LPC/usuario/edit.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>"
+									title="Editar"> <i
 										class="fas fa-pen-square fs-4 text-warning"></i>
-								</a> <a href="#" title="Borrar"><i
+								</a> <a href="/TP003-LPC/usuario/delete.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>" title="Borrar"><i
 										class="fas fa-minus-square fs-4 text-danger"></i></a></td>
 							</tr>
 						</c:forEach>
