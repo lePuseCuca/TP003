@@ -9,6 +9,7 @@ public class Usuario {
 	private Tipo tipoPreferido;
 	private String clave;
 	private Boolean admin;
+	private boolean disponible;
 
 	public Usuario() {
 	}
@@ -23,9 +24,18 @@ public class Usuario {
 			this.tipoPreferido = tipoPreferido;
 			this.clave = clave;
 			this.admin = admin;
+			this.disponible = true;
 		} else
 			throw new ErrorDatosException("Datos con valor negativo");
 
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 
 	public String getNombre() {
