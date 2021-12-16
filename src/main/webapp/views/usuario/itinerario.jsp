@@ -14,7 +14,7 @@
 		<jsp:include page="/partials/nav.jsp"></jsp:include>
 	</header>
 	
-	<div class="container">
+	<main class="container">
 		<section class="mx-auto my-5" style="max-width: 30rem;">
 			
 			<div class="card">
@@ -27,17 +27,14 @@
 							<p class="card-text">Secretaria de Turismo Tierra Media</p>
 						</div>
 					</div>
-					<!--div class="d-flex justify-content-between">
-                <p class="display-1 degree">23</p>
-                <i class="fas fa-sun-o fa-5x pt-3 text-warning"></i>
-              </div-->
+					
 					<div class="d-flex justify-content-between mb-2 mx-3">
 						<p class="display-6">
-							<!--i class="fas fa-coins fa-lg text-info pe-2"></i-->
+							
 							<strong> $ <c:out value="${itinerario.costo}"></c:out></strong>
 						</p>
 						<p class="display-6">
-							<!--i class="fas fa-clock fa-lg text-info pe-2"></i-->
+							
 							<strong><c:out value="${itinerario.tiempo}"></c:out> hs.</strong>
 						</p>
 					</div>
@@ -61,36 +58,7 @@
 
 								</tr>
 							</c:forEach>
-								<!-- tr>
-									<td class="font-weight-normal fs-6"><strong>Erebor</strong>
-										<span class="badge rounded-pill bg-pai">PAI</span></td>
-									<td class="float-end font-weight-normal ">
-										<p class="mb-1">
-											$10<span class="text-muted">/2 hs</span>
-										</p>
-									</td>
-
-								</tr>
-								<tr>
-									<td class="font-weight-normal fs-6"><strong>La
-											Comarca</strong> <span class="badge rounded-pill bg-deg">DEG</span></td>
-									<td class="float-end font-weight-normal">
-										<p class="mb-1">
-											$35<span class="text-muted">/6.5 hs</span>
-										</p>
-									</td>
-
-								</tr>
-								<tr>
-									<td class="font-weight-normal fs-6"><strong>Abismo
-											de Helm</strong> <span class="badge rounded-pill bg-deg">PAI</span></td>
-									<td class="float-end font-weight-normal">
-										<p class="mb-1">
-											$ 15<span class="text-muted">/6.5 hs</span>
-										</p>
-									</td>
-
-								</tr-->
+	
 							</tbody>
 						</table>
 					</div>
@@ -109,7 +77,7 @@
 			</div>
 
 		</section>
-	</div>
+	</main>
 
 </body>
 </html>
