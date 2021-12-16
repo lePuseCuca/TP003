@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,29 +12,39 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Atraccion;
 import model.Promocion;
-import services.ProductService;
+import model.Usuario;
+import services.AttractionService;
+import services.PromotionService;
+import services.UserService;
 
-@WebServlet("/adminListProducts.do")
-public class AdminListPorductsServlet extends HttpServlet implements Servlet {
+@WebServlet("/admin.do")
+public class AdminServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 3679279743547995532L;
-	private ProductService productService;
+	private AttractionService attractionService;
+	private PromotionService promotionService;
+	private UserService usuarioService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.productService = new ProductService();
+		this.attractionService = new AttractionService();
+		this.promotionService = new PromotionService();
+		this.usuarioService = new UserService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<Promocion> promociones = productService.promotionslist();
-		req.setAttribute("promociones", promociones);
-
-		List<Atraccion> atracciones = productService.attractionslist();
+		List<Atraccion> atracciones = this.attractionService.list();
 		req.setAttribute("atracciones", atracciones);
 
+		List<Promocion> promociones = this.promotionService.list(this.attractionService.map());
+		req.setAttribute("promociones", promociones);
+		
+		List<Usuario> usuarios = usuarioService.list();
+		req.setAttribute("usuarios", usuarios);
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/dashboard.jsp");
 		dispatcher.forward(req, resp);
 	}

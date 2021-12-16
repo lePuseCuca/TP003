@@ -1,48 +1,36 @@
 package services;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import dao.AtraccionesDAO;
-import dao.DAOFactory;
-import dao.ItinerarioDAO;
-import dao.PromocionDAO;
 import model.Atraccion;
+import model.ComparadorProducto;
 import model.Itinerario;
 import model.Producto;
 import model.Promocion;
-import model.SecretariaTurismo;
 import model.Usuario;
 
 public class ProductService {
-
-	private AtraccionesDAO gestorAtracciones = DAOFactory.getAtraccionesDAO();
-	private PromocionDAO gestorPromociones = DAOFactory.getPromocionDAO();
-	private ItinerarioDAO gestorItinerarios = DAOFactory.getItinerarioDAO();
-	private SecretariaTurismo st;
-
-	public ProductService() {
-		this.st = new SecretariaTurismo(this.gestorAtracciones.findAllAtracciones(),
-				this.gestorPromociones.findAll(this.gestorAtracciones.findAllAtracciones()));
+	
+	private Map<String, Producto> productos = new HashMap<String, Producto>();
+	
+	public ProductService(Map<String, Atraccion> atracciones, List<Promocion> promociones) {
+		this.setProductos(atracciones, promociones);
 	}
 
-	// Refactorizar nombre de variables!
-	public List<Producto> list(Usuario usuario) {
+	public List<Producto> listForUser(Usuario usuario, Itinerario it, ComparadorProducto comparador) {
 
 		List<Producto> productos = new LinkedList<Producto>();
-		Itinerario itinerario = this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos());
-		// 1° crear NullItinerario.java
-		if (itinerario == null)
-			itinerario = new Itinerario(usuario.getNombre());
+		if (it == null) it = new Itinerario(usuario.getNombre());
 
-		Iterator<Producto> itr = st.getProductosParaUsuario(usuario).iterator();
+		Iterator<Producto> itr = this.getProductsForUser(comparador).iterator();
 
 		while (itr.hasNext()) {
 			Producto producto = itr.next();
-			if (!st.atraccionComprada(producto, itinerario.getProductos())) {
+			if (!this.productBought(producto, it.getProductos())) {
 				productos.add(producto);
 			}
 		}
@@ -50,19 +38,13 @@ public class ProductService {
 		return productos;
 	}
 
-	public List<Promocion> promotionslist() {
-		return st.getPromociones();
-	}
-
-	public List<Atraccion> attractionslist() {
-		return st.getAtracciones();
-	}
-
+	/*
+	 * Pre: productoId es un producto que no pertenese al itinerario del usuario.
+	 * */
 	public Map<String, String> buy(Usuario usuario, String productoId) {
 		
 		Map<String, String> errores = new HashMap<String, String>();
-		Producto producto = st.getProductos().get(productoId);
-		UserService userService = new UserService();
+		Producto producto = this.productos.get(productoId);
 				
 		if (!producto.hayCupo()) {
 			errores.put("producto", "No hay cupo disponible");
@@ -75,24 +57,39 @@ public class ProductService {
 		if (errores.isEmpty()) {
 			producto.venderProducto();
 			usuario.comprarProducto(producto);
-			
-			Itinerario it = this.gestorItinerarios.findItinerarioByUsuario(usuario.getNombre(), st.getProductos());
-			if (it == null) it = new Itinerario(usuario.getNombre());
-			
-			it.addProducto(producto);
-			this.gestorItinerarios.update(it);
-			
-			userService.update(usuario);
-			
-			if (producto.esPromocion()) {
-				for (Atraccion atraccion : producto.getAtracciones()) {
-					this.gestorAtracciones.update(atraccion);
-				}
-			} else {
-				this.gestorAtracciones.update((Atraccion) producto);
-			}
 		}
  	
 		return errores;
+	}
+	
+	private void setProductos(Map<String, Atraccion> atracciones, List<Promocion> promociones) {
+		this.productos.putAll(atracciones);
+		for (Promocion promo : promociones)
+			this.productos.put(promo.getId(), promo);
+	}
+	
+	public Map<String, Producto> getProductos() {
+		return this.productos;
+	}
+	
+	/*
+	 * Recibe un usuario y devuelve una lista ordenada de productos según
+	 * suspreferencias.
+	 */
+	public List<Producto> getProductsForUser(ComparadorProducto comp) {
+		List<Producto> resultado = new LinkedList<Producto>(this.productos.values());
+		Collections.sort(resultado, comp);
+		return resultado;
+	}
+	
+	public boolean productBought(Producto p, List<Producto> productosItinerario) {
+		for (Producto producto : productosItinerario) {
+			if (p.equals(producto)) return true;
+			if (producto.esPromocion()) {
+				for (Atraccion atr : producto.getAtracciones())
+					if (p.equals(atr)) return true;
+			}
+		}
+		return false;
 	}
 }
