@@ -36,7 +36,6 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 		}
 	}
 			
-	// AQUI LO MISMO, CHEQUEAR SI DISPONIBLE = 1 ESTA OK
 	@Override
 	public int countAll() {
 		try {
@@ -67,7 +66,6 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			statement.setDouble(4, atr.getCosto());
 			statement.setInt(5, atr.getCupo());
 			statement.setObject(6, atr.getTipo());
-			//statement.setBoolean(7, atr.isDisponible());
 
 			int rows = statement.executeUpdate();
 
@@ -80,12 +78,16 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int update(Atraccion atr) {
 		try {
-			String sql = "UPDATE ATRACCIONES SET CUPO = ? WHERE ID = ?";
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, TIEMPO = ? COSTO = ?, CUPO = ?, TIPO = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setDouble(1, atr.getCupo());
-			statement.setString(2, atr.getId());
+			statement.setString(1, atr.getNombre());
+			statement.setDouble(2, atr.getTiempo());
+			statement.setDouble(3, atr.getCosto());
+			statement.setInt(4, atr.getCupo());
+			statement.setObject(4, atr.getTipo());
+			statement.setString(5, atr.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -93,8 +95,6 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			throw new MissingDataException(e);
 		}
 	}
-	
-	//ESTA OK EL BORRADO DE ESTA MANERA? USANDO EL DISPONIBLE Y SETEANDO EN FALSE??
 
 	@Override
 	public int delete(Atraccion atr) {
@@ -145,5 +145,4 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

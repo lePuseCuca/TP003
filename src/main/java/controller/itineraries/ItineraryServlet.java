@@ -24,22 +24,22 @@ public class ItineraryServlet extends HttpServlet implements Servlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		this.itineraryService = new ItineraryService();
-		this.productService = new ProductService();
+//		this.itineraryService = new ItineraryService();
+//		this.productService = new ProductService();
 	}
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
-		//Necesito el mapa de producto para poder pedir el it al dao. refactorizar para que st sea servicio!
-		
-		if (usuario.isAdmin()) {
-			Itinerario it = this.itineraryService.getItinerario((String) req.getParameter("usuarioId"));
-		} else {
-			Itinerario it = this.itineraryService.getItinerario(usuario.getNombre());
-		}
-		
-	}
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//
+//		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
+//		//Necesito el mapa de producto para poder pedir el it al dao. refactorizar para que st sea servicio!
+//		
+//		if (usuario.isAdmin()) {
+//			Itinerario it = this.itineraryService.getItinerario((String) req.getParameter("usuarioId"));
+//		} else {
+//			Itinerario it = this.itineraryService.getItinerario(usuario.getNombre());
+//		}
+//		
+//	}
 	
 }

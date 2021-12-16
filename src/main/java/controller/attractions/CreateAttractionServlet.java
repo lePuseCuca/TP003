@@ -47,10 +47,12 @@ public class CreateAttractionServlet extends HttpServlet {
 		Boolean disponible = true;
 
 		Atraccion atraccion = null;
+		String error = null;
+
 		try {
 			atraccion = attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible);
 		} catch (ErrorDatosException e) {
-
+			error = "Los datos ingresados no son correctos.";
 			e.printStackTrace();
 		}
 
@@ -58,7 +60,7 @@ public class CreateAttractionServlet extends HttpServlet {
 		if (atraccion != null) {
 			resp.sendRedirect("/TP003-LPC/adminListProducts.do");
 		} else {
-			req.setAttribute("atraccion", atraccion);
+			req.setAttribute("error", error);
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/atraccionalta.jsp");
 			dispatcher.forward(req, resp);

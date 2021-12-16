@@ -15,7 +15,14 @@ public class ItineraryService {
 		this.productos = productos;
 	}
 
-	public Itinerario getItinerario(String parameter) {
-		return this.gestorItinerarios.findItinerarioByUsuario(parameter, this.productos);
+	public Itinerario getItinerario(String nombreUsuario) {
+		return this.gestorItinerarios.findItinerarioByUsuario(nombreUsuario, this.productos);
+	}
+
+	public void addProduct(Producto producto, String nombreUsuario) {
+		Itinerario it = this.getItinerario(nombreUsuario);
+		if (it == null) it = new Itinerario(nombreUsuario);
+		it.addProducto(producto);
+		this.gestorItinerarios.update(it);
 	}
 }
