@@ -69,9 +69,19 @@
 										<c:out value="${atraccion.tipo}"></c:out>
 								</span></td>
 								<td><a href="#" title="Editar"><i
-										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a href="#"
-									title="Borrar"><i
-										class="fas fa-minus-square fs-4 text-danger"></i></a></td>
+										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a
+									href="/TP003-LPC/attractions/delete?id=<c:out value="${atraccion.id}"></c:out>">
+										<c:choose>
+											<c:when test="${atraccion.disponible=='1'}">
+												<i title="Cargar"
+													class="fas fa-arrow-circle-up fs-4 text-success"></i>
+											</c:when>
+											<c:otherwise>
+												<i title="Borrar"
+													class="fas fa-minus-square fs-4 text-danger"></i>
+											</c:otherwise>
+										</c:choose>
+								</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -158,19 +168,20 @@
 										<c:out value="${usuario.tipoPreferido}"></c:out>
 								</span></td>
 
-								<td>
-									<c:choose>
+								<td><c:choose>
 										<c:when test="${usuario.admin}">
 											SI
 										</c:when>
 										<c:otherwise>
 											NO
 										</c:otherwise>
-									</c:choose>
-								</td>
+									</c:choose></td>
 
-								<td><a href="/TP003-LPC/itinerario.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>" title="Ver itinerario de <c:out value="${usuario.nombre}"></c:out>"><i
-										class="far fa-map fs-4 text-info"></i> </a> <a href="#" 	title="Editar"> <i
+								<td><a
+									href="/TP003-LPC/itinerario.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>"
+									title="Ver itinerario de <c:out value="${usuario.nombre}"></c:out>"><i
+										class="far fa-map fs-4 text-info"></i> </a> <a href="#"
+									title="Editar"> <i
 										class="fas fa-pen-square fs-4 text-warning"></i>
 								</a> <a href="#" title="Borrar"><i
 										class="fas fa-minus-square fs-4 text-danger"></i></a></td>
