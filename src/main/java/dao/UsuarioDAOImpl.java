@@ -148,4 +148,10 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				resultados.getBoolean("admin"));
 	}
 
+	@Override
+	public int updateStatus(Usuario t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

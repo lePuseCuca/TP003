@@ -53,6 +53,7 @@
 							<td>COSTO</td>
 							<td>TIEMPO</td>
 							<td>TIPO</td>
+							<td>ESTADO</td>
 							<td>ACCIONES</td>
 						</tr>
 					</thead>
@@ -68,6 +69,9 @@
 									class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(atraccion.tipo), 0, 3)}"></c:out>">
 										<c:out value="${atraccion.tipo}"></c:out>
 								</span></td>
+								<td> <span <c:if test="${!atraccion.disponible}"> class="text-black text-opacity-25"</c:if>><b>DISPONIBLE</b></span>
+								
+								</td>
 								<td><a href="/TP003-LPC/attractions/edit.do?id=<c:out value="${atraccion.id}"></c:out>"><i title="Editar"
 										class="fas fa-pen-square fs-4 text-warning"></i> </a> 
 								    <!--  <a href="/TP003-LPC/attractions/delete.do?id=<c:out value="${atraccion.id}"></c:out>"> -->
@@ -102,8 +106,8 @@
 							<td>NOMBRE</td>
 							<td>ATRACCIONES</td>
 							<td>COSTO</td>
-							<td>DESCUENTO</td>
 							<td>TIPO</td>
+							<td>ESTADO</td>
 							<td>OPCIONES</td>
 						</tr>
 					</thead>
@@ -120,11 +124,11 @@
 										<br>
 									</c:forEach></td>
 								<td>$ <c:out value="${promocion.costo}"></c:out></td>
-								<td>Descuento?</td>
 								<td><span
 									class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(promocion.tipo), 0, 3)}"></c:out>">
 										<c:out value="${promocion.tipo}"></c:out>
 								</span></td>
+								<td> <span <c:if test="${!promocion.disponible}"> class="text-black text-opacity-25"</c:if>><b>DISPONIBLE</b></span>
 								<td><a href="#" title="Editar"><i
 										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a href="#"
 									title="Borrar"><i

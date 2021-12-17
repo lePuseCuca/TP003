@@ -101,7 +101,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 							TipoPromocion.valueOf(tipoPromo), 
 							tempAt,
 							Tipo.valueOf(resultados.getString("tipo_atracciones")),
-							Double.parseDouble(resultados.getString("descuento"))); 
+							Double.parseDouble(resultados.getString("descuento")),
+							resultados.getBoolean("disponible")); 
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ErrorDatosException e) {
@@ -118,7 +119,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 								TipoPromocion.valueOf(tipoPromo), 
 								tempAt,
 								Tipo.valueOf(resultados.getString("tipo_atracciones")),
-								Double.parseDouble(resultados.getString("descuento")));
+								Double.parseDouble(resultados.getString("descuento")),
+								resultados.getBoolean("disponible"));
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ErrorDatosException e) {
@@ -134,7 +136,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 						TipoPromocion.valueOf(tipoPromo), 
 						tempAt,
 						atracciones.get(resultados.getString("descuento")),
-						Tipo.valueOf(resultados.getString("tipo_atracciones")));
+						Tipo.valueOf(resultados.getString("tipo_atracciones")),
+						resultados.getBoolean("disponible"));
 			}
 			break;
 		}	
@@ -161,6 +164,12 @@ public class PromocionDAOImpl implements PromocionDAO {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+
+	@Override
+	public int updateStatus(Promocion t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
