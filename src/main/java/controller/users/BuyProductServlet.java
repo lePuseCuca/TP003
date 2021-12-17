@@ -34,10 +34,9 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 		super.init();
 		this.attractionService = new AttractionService();
 		this.promotionService = new PromotionService();
-		this.productService = new ProductService(this.attractionService.map(),
-				this.promotionService.list(this.attractionService.map()));
+		this.productService = new ProductService();
 		this.userService = new UserService();
-		this.itineraryService = new ItineraryService(this.productService.getProductos());
+		this.itineraryService = new ItineraryService();
 	}
 
 	@Override
@@ -46,7 +45,12 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 		String productoId = (String) req.getParameter("id");
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 
-		Map<String, String> errores = productService.buy(usuario, productoId);
+		this.productService.setProductos(this.attractionService.map(),
+				this.promotionService.list(this.attractionService.map()));
+		this.itineraryService.setProductos(this.productService.getProductos());
+		
+		
+		Map<String, String> errores = this.productService.buy(usuario, productoId);
 
 		if (errores.isEmpty()) {
 			

@@ -20,7 +20,10 @@ import services.UserService;
 @WebServlet("/admin.do")
 public class AdminServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = 3679279743547995532L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6462905751315005998L;
 	private AttractionService attractionService;
 	private PromotionService promotionService;
 	private UserService usuarioService;

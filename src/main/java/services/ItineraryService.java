@@ -11,7 +11,7 @@ public class ItineraryService {
 	private ItinerarioDAO gestorItinerarios = DAOFactory.getItinerarioDAO();
 	private Map<String, Producto> productos;
 	
-	public ItineraryService(Map<String, Producto> productos) {
+	public void setProductos(Map<String, Producto> productos) {
 		this.productos = productos;
 	}
 
