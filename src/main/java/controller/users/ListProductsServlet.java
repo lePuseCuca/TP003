@@ -35,10 +35,8 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 		super.init();
 		this.attractionService = new AttractionService();
 		this.promotionService = new PromotionService();
-		this.productService = new ProductService(
-				this.attractionService.map(), 
-				this.promotionService.list(this.attractionService.map()));
-		this.itineraryService = new ItineraryService(this.productService.getProductos());
+		this.productService = new ProductService();
+		this.itineraryService = new ItineraryService();
 		this.comparatorService = new ComparatorService();
 	}
 	
@@ -46,6 +44,11 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
+		
+		this.productService.setProductos(this.attractionService.map(), 
+				this.promotionService.list(this.attractionService.map()));
+		
+		this.itineraryService.setProductos(this.productService.getProductos());
 		
 		Itinerario it = this.itineraryService.getItinerario(usuario.getNombre());
 		ComparadorProducto comparador = this.comparatorService.generarComparadorProducto(usuario.getTipoPreferido()); 

@@ -19,7 +19,7 @@ import services.PromotionService;
 @WebServlet("/itinerario.do")
 public class ItineraryServlet extends HttpServlet implements Servlet {
 
-	private static final long serialVersionUID = -7696899312128181650L;
+	private static final long serialVersionUID = 862533293373363088L;
 	private ItineraryService itineraryService;
 	private ProductService productService;
 	private AttractionService atractionService;
@@ -30,8 +30,8 @@ public class ItineraryServlet extends HttpServlet implements Servlet {
 		super.init(config);
 		this.atractionService = new AttractionService();
 		this.promotionService = new PromotionService();
-		this.productService = new ProductService(this.atractionService.map(), promotionService.list(this.atractionService.map()));
-		this.itineraryService = new ItineraryService(this.productService.getProductos());
+		this.productService = new ProductService();
+		this.itineraryService = new ItineraryService();
 	}
 	
 	@Override
@@ -39,6 +39,9 @@ public class ItineraryServlet extends HttpServlet implements Servlet {
 
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 		Itinerario it = null;		
+		
+		this.productService.setProductos(this.atractionService.map(), promotionService.list(this.atractionService.map()));
+		this.itineraryService.setProductos(this.productService.getProductos());
 		
 		if (usuario.isAdmin()) {
 			it = this.itineraryService.getItinerario((String) req.getParameter("usuarioId"));

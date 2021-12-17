@@ -16,10 +16,6 @@ import model.Usuario;
 public class ProductService {
 	
 	private Map<String, Producto> productos = new HashMap<String, Producto>();
-	
-	public ProductService(Map<String, Atraccion> atracciones, List<Promocion> promociones) {
-		this.setProductos(atracciones, promociones);
-	}
 
 	public List<Producto> listForUser(Usuario usuario, Itinerario it, ComparadorProducto comparador) {
 
@@ -62,7 +58,7 @@ public class ProductService {
 		return errores;
 	}
 	
-	private void setProductos(Map<String, Atraccion> atracciones, List<Promocion> promociones) {
+	public void setProductos(Map<String, Atraccion> atracciones, List<Promocion> promociones) {
 		this.productos.putAll(atracciones);
 		for (Promocion promo : promociones)
 			this.productos.put(promo.getId(), promo);
