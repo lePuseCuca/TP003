@@ -9,6 +9,7 @@ public class Usuario {
 	private Tipo tipoPreferido;
 	private String clave;
 	private Boolean admin;
+	private boolean disponible;
 
 	public Usuario() {
 	}
@@ -23,9 +24,18 @@ public class Usuario {
 			this.tipoPreferido = tipoPreferido;
 			this.clave = clave;
 			this.admin = admin;
+			this.disponible = true;
 		} else
 			throw new ErrorDatosException("Datos con valor negativo");
 
+	}
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 
 	public String getNombre() {
@@ -53,6 +63,10 @@ public class Usuario {
 	}
 
 	public Boolean isAdmin() {
+		return this.admin;
+	}
+	
+	public Boolean getAdmin() {
 		return this.admin;
 	}
 
@@ -83,17 +97,6 @@ public class Usuario {
 		this.admin = admin;
 	}
 
-	// ---------------
-
-	public boolean comprarItinerario(double costoCompra, double tiempoCompra) {
-		if (costoCompra <= this.monedas && tiempoCompra <= this.tiempo) {
-			this.monedas -= costoCompra;
-			this.tiempo -= tiempoCompra;
-			return true;
-		}
-		return false;
-	}
-
 	private boolean validarDato(double dato) {
 		return (dato >= 0);
 	}
@@ -108,4 +111,9 @@ public class Usuario {
 	 * 
 	 * }
 	 */
+
+	public void comprarProducto(Producto producto) {
+		this.monedas -= producto.getCosto();
+		this.tiempo -= producto.getTiempo();		
+	}
 }

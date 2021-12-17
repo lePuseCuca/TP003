@@ -75,6 +75,23 @@ public class PromocionDAOImpl implements PromocionDAO {
 			throw new MissingDataException(e);
 		}
 	}
+	
+	public List<Promocion> findAllDisponible(Map<String, Atraccion> atracciones) {
+		try {
+			String sql = "SELECT * FROM promociones WHERE disponible = 1";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+
+			List<Promocion> promociones = new LinkedList<Promocion>();
+			while (resultados.next()) {
+				promociones.add(toPromocion(resultados, atracciones));
+			}
+			return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
 
 	private Promocion toPromocion(ResultSet resultados, Map<String, Atraccion> atracciones) throws SQLException {
 		Promocion promoNueva = null;
@@ -101,7 +118,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 							TipoPromocion.valueOf(tipoPromo), 
 							tempAt,
 							Tipo.valueOf(resultados.getString("tipo_atracciones")),
-							Double.parseDouble(resultados.getString("descuento"))); 
+							Double.parseDouble(resultados.getString("descuento")),
+							resultados.getBoolean("disponible")); 
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ErrorDatosException e) {
@@ -118,7 +136,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 								TipoPromocion.valueOf(tipoPromo), 
 								tempAt,
 								Tipo.valueOf(resultados.getString("tipo_atracciones")),
-								Double.parseDouble(resultados.getString("descuento")));
+								Double.parseDouble(resultados.getString("descuento")),
+								resultados.getBoolean("disponible"));
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				} catch (ErrorDatosException e) {
@@ -134,7 +153,8 @@ public class PromocionDAOImpl implements PromocionDAO {
 						TipoPromocion.valueOf(tipoPromo), 
 						tempAt,
 						atracciones.get(resultados.getString("descuento")),
-						Tipo.valueOf(resultados.getString("tipo_atracciones")));
+						Tipo.valueOf(resultados.getString("tipo_atracciones")),
+						resultados.getBoolean("disponible"));
 			}
 			break;
 		}	
@@ -161,6 +181,12 @@ public class PromocionDAOImpl implements PromocionDAO {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+
+	@Override
+	public int updateStatus(Promocion t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

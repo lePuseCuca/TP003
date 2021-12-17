@@ -6,35 +6,18 @@ import java.util.List;
 public class Itinerario {
 	private String idUsuario;
 	private List<Producto> productos;
-	private boolean primeraCompra = true;
-	private List<String> nuevosProductos;
 		
 	public Itinerario (String idUsuario) {
 		this.idUsuario = idUsuario;
 		this.productos = new ArrayList<Producto>();
-		this.nuevosProductos = new ArrayList<String>();
-	}
-	
-	public void setPrimeraCompraFalso() {
-		this.primeraCompra = false;
-	}
-	
-	public boolean getNuevoItinerario() {
-		return this.primeraCompra;
 	}
 	
 	public void addProducto(Producto producto) {
 		this.productos.add(producto);
-		if(!primeraCompra)
-			this.nuevosProductos.add(producto.getId());
 	}
 	
 	public List<Producto> getProductos(){
 		return this.productos;
-	}
-	
-	public List<String> getNuevosProductos(){
-		return this.nuevosProductos;
 	}
 	
 	public int getTotalProductos() {
@@ -45,7 +28,17 @@ public class Itinerario {
 		return this.idUsuario;
 	}
 	
+	public double getTiempo() {
+		return this.calcularTiempoItinerario();
+	}
+	public double getCosto() {
+		return this.calcularCostoItinerario();
+	}
 	
+	public String getIdUsuario() {
+		return idUsuario;
+	}
+
 	@Override
 	public String toString() {
 		String resumen = "";

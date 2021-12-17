@@ -54,7 +54,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public int insert(Usuario usuario) { 
 		try {
-			String sql = "INSERT INTO usuarios (nombre, monedas, tiempo, tipo_preferido, clave, admin) VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO usuarios (nombre, monedas, tiempo, tipo_preferido, clave, admin, disponible) VALUES (?, ?, ?, ?, ?, ?, 1)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -76,7 +76,7 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public int update(Usuario usuario) { 
 		try {
-			String sql = "UPDATE usuarios SET nombre = ?, monedas = ?, tiempo = ?, tipo_preferido = ? WHERE nombre = ?";
+			String sql = "UPDATE usuarios SET nombre = ?, monedas = ?, tiempo = ?, tipo_preferido = ?, clave = ?, admin = ?, disponible = 1 WHERE nombre = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -84,7 +84,9 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			statement.setDouble(2, usuario.getPresupuesto());
 			statement.setDouble(3, usuario.getTiempo());
 			statement.setString(4, usuario.getTipoPreferido().toString());
-			statement.setString(5, usuario.getNombre());
+			statement.setString(5, usuario.getClave());
+			statement.setBoolean(6, usuario.isAdmin());
+			statement.setString(7, usuario.getNombre());
 			
 						
 			int rows = statement.executeUpdate();
@@ -99,11 +101,13 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 	@Override
 	public int delete(Usuario usuario) {
 		try {
-			String sql = "DELETE FROM usuarios WHERE nombre = ?";
+//			String sql = "DELETE FROM usuarios WHERE nombre = ?";
+			String sql = "UPDATE usuarios SET DISPONIBLE = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, usuario.getNombre());
+			statement.setBoolean(1, false); //Funciona con así con bool???
+			statement.setString(2, usuario.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -142,6 +146,12 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 				Tipo.valueOf(resultados.getString("tipo_preferido")), 
 				resultados.getString("clave"),
 				resultados.getBoolean("admin"));
+	}
+
+	@Override
+	public int updateStatus(Usuario t) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

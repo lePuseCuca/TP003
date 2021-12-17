@@ -9,8 +9,8 @@ public class PromocionAxB extends Promocion {
 	
 	public PromocionAxB(){}
 	
-	public PromocionAxB(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Atraccion atraccionSinCargo, Tipo tipo) {
-		super(id, nombre, tipoPromo, atracciones, tipo);
+	public PromocionAxB(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Atraccion atraccionSinCargo, Tipo tipo, boolean disponible) {
+		super(id, nombre, tipoPromo, atracciones, tipo, disponible);
 		this.atraccionSinCargo = atraccionSinCargo;		
 		this.tiempo += atraccionSinCargo.getTiempo();
 		super.setCosto();

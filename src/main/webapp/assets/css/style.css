@@ -71,6 +71,15 @@ td i{
     margin-bottom: .5rem;    
 }
 
+.pill-promo{
+    background: #00B74A;
+    color: #fff;    
+    font-weight: 400;
+    font-size: .9rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: .5rem;    
+}
+
 .ft-serif{
     font-family: 'Cinzel', serif;    
 }
@@ -90,3 +99,38 @@ td i{
     background-color: rgba(53, 53, 53, 0.75);
     padding: 1rem;
 }
+
+  /*  ITINERARIO  */
+.avatar-iti {
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    height: 70px !important;
+    width: 70px !important;
+    border: 2px solid #ddd;
+  }
+
+  .pill-promo{
+    background: #00B74A;
+    color: #fff;    
+    font-weight: 400;
+    font-size: .9rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: .5rem;    
+}
+.bg-promo{
+    background: #00B74A;    
+}
+
+.bg-ave{
+    background: #ffd54f;    
+}
+
+.bg-pai{
+    background: #90A4AE;
+}
+
+.bg-deg{
+    background: #A1887F
+}
+/* Fin itinerario */

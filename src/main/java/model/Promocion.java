@@ -9,15 +9,20 @@ public class Promocion extends Producto{
 	
 	public Promocion() {};
 	
-	public Promocion(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo) {
+	public Promocion(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, boolean disponible) {
 		super(id, nombre, tipo);
 		this.atracciones = atracciones;
 		this.tiempo = setTiempo(atracciones);		
 		this.tipoPromocion = tipoPromo;
+		this.disponible = disponible;
 	}
 	
 	public List<Atraccion> getAtracciones(){
 		return this.atracciones;
+	}
+	
+	public boolean getDisponible() {
+		return this.disponible;
 	}
 	
 	@Override
@@ -36,7 +41,7 @@ public class Promocion extends Producto{
 		this.costo = costoTotal;
 	}
 	
-	protected boolean hayCupo() {
+	public boolean hayCupo() {
 		for (Atraccion atr: atracciones)
 			if (atr.getCupo() <= 0 )
 				return false;
@@ -51,7 +56,7 @@ public class Promocion extends Producto{
 	}
 
 	@Override
-	protected boolean venderProducto() {
+	public boolean venderProducto() {
 		boolean vendible = true;
 		for (Atraccion atr: this.atracciones)
 			if (atr.getCupo() == 0)

@@ -8,6 +8,7 @@ public abstract class Producto {
 	protected double costo;
 	protected double tiempo;
 	protected Tipo tipo;
+	protected boolean disponible;
 	
 	public Producto() {}
 	
@@ -41,11 +42,11 @@ public abstract class Producto {
 		return false;
 	}
 	
-	protected abstract boolean hayCupo();
+	public abstract boolean hayCupo();
 	
 	public abstract List<Atraccion> getAtracciones();
 	
-	protected abstract boolean venderProducto();
+	public abstract boolean venderProducto();
 	
 	protected boolean validarDatoNumerico(double dato) {
 		return (dato > 0);
