@@ -75,6 +75,23 @@ public class PromocionDAOImpl implements PromocionDAO {
 			throw new MissingDataException(e);
 		}
 	}
+	
+	public List<Promocion> findAllDisponible(Map<String, Atraccion> atracciones) {
+		try {
+			String sql = "SELECT * FROM promociones WHERE disponible = 1";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
+
+			List<Promocion> promociones = new LinkedList<Promocion>();
+			while (resultados.next()) {
+				promociones.add(toPromocion(resultados, atracciones));
+			}
+			return promociones;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
 
 	private Promocion toPromocion(ResultSet resultados, Map<String, Atraccion> atracciones) throws SQLException {
 		Promocion promoNueva = null;

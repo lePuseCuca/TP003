@@ -116,4 +116,10 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 		return itinerario;
 	}
+
+	@Override
+	public int updateStatus(Itinerario t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
