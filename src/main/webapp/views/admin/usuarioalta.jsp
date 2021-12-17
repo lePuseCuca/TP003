@@ -24,7 +24,7 @@
 					<label for="nombre">Nombre</label> 
 					<input type="text" name="nombre" id="nombre"
 						class="form-control" placeholder="Ingresá un nombre de usuario"
-						required value="<c:out value="${usuario.nombre}"></c:out>" />		
+						required value="<c:out value="${usuarioEditar.nombre}"></c:out>" />		
 				</div>
 				<div class="form-group">
 					<label for="monedas">Monedas</label> <input type="number" name="monedas"
