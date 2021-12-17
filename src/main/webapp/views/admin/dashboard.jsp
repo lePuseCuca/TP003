@@ -68,20 +68,20 @@
 									class="badge rounded-pill pill-<c:out value="${fn:substring(fn:toLowerCase(atraccion.tipo), 0, 3)}"></c:out>">
 										<c:out value="${atraccion.tipo}"></c:out>
 								</span></td>
-								<td><a href="#" title="Editar"><i
-										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a
-									href="/TP003-LPC/attractions/delete?id=<c:out value="${atraccion.id}"></c:out>">
+								<td><a href="/TP003-LPC/attractions/edit.do?id=<c:out value="${atraccion.id}"></c:out>"><i title="Editar"
+										class="fas fa-pen-square fs-4 text-warning"></i> </a> 
+								    <!--  <a href="/TP003-LPC/attractions/delete.do?id=<c:out value="${atraccion.id}"></c:out>"> -->
 										<c:choose>
 											<c:when test="${atraccion.disponible=='1'}">
-												<i title="Cargar"
-													class="fas fa-arrow-circle-up fs-4 text-success"></i>
+												<a href="/TP003-LPC/attractions/updatestatus.do?id=<c:out value="${atraccion.id}"></c:out>"><i title="Cargar"
+													class="fas fa-plus-square fs-4 text-success"></i></a>
 											</c:when>
 											<c:otherwise>
-												<i title="Borrar"
-													class="fas fa-minus-square fs-4 text-danger"></i>
+												<a href="/TP003-LPC/attractions/updatestatus.do?id=<c:out value="${atraccion.id}"></c:out>"><i title="Borrar"
+													class="fas fa-minus-square fs-4 text-danger"></i></a>
 											</c:otherwise>
 										</c:choose>
-								</a></td>
+							<!--	</a>--></td>
 							</tr>
 						</c:forEach>
 					</tbody>

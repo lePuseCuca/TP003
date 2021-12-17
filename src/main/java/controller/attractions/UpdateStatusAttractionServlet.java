@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import services.AttractionService;
 
-@WebServlet("/attractions/delete")
-public class DeleteAttractionServlet extends HttpServlet {
+@WebServlet("/attractions/updatestatus.do")
+public class UpdateStatusAttractionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1537949074766873118L;
 	private AttractionService attractionService;
@@ -25,7 +25,8 @@ public class DeleteAttractionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 
-		attractionService.delete(id);
+		attractionService.updateStatus(id);
+		
 
 		resp.sendRedirect("/TP003-LPC/admin.do");
 	}

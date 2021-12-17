@@ -28,11 +28,16 @@ public class AttractionService {
 		return this.gestorAtracciones.insert(atraccion);
 	}
 	
-	public int update(Atraccion atraccion) {
+	public int update(String id, String nombre, double tiempo, double costo, int cupo, Tipo tipo,
+			boolean disponible) throws ErrorDatosException {
+		Atraccion atraccion = new Atraccion(id, nombre, tiempo, costo, cupo, tipo, disponible);
 		return this.gestorAtracciones.update(atraccion);
 	}
+	
+	public int updateStatus(String id) {
+		return this.gestorAtracciones.updateStatus(gestorAtracciones.findAtraccionById(id));
+	}
 
-	//public int delete(String id) {
 	public int delete(String id) {
 		return this.gestorAtracciones.delete(gestorAtracciones.findAtraccionById(id));
 	}

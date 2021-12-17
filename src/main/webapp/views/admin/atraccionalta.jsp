@@ -25,7 +25,6 @@
 					<input type="text" name="id" id="id"
 						class="form-control" placeholder="Ingresa el id de la atracción"
 						required value="<c:out value="${atraccion.id}"></c:out>" />
-						
 				</div>
 				<div class="form-group">
 					<label for="nombre">Nombre</label> <input type="text" name="nombre"
