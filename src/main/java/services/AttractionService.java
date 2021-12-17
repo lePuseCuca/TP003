@@ -32,6 +32,7 @@ public class AttractionService {
 		return this.gestorAtracciones.update(atraccion);
 	}
 
+	//public int delete(String id) {
 	public int delete(String id) {
 		return this.gestorAtracciones.delete(gestorAtracciones.findAtraccionById(id));
 	}

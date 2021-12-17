@@ -69,9 +69,19 @@
 										<c:out value="${atraccion.tipo}"></c:out>
 								</span></td>
 								<td><a href="#" title="Editar"><i
-										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a href="#"
-									title="Borrar"><i
-										class="fas fa-minus-square fs-4 text-danger"></i></a></td>
+										class="fas fa-pen-square fs-4 text-warning"></i> </a> <a
+									href="/TP003-LPC/attractions/delete?id=<c:out value="${atraccion.id}"></c:out>">
+										<c:choose>
+											<c:when test="${atraccion.disponible=='1'}">
+												<i title="Cargar"
+													class="fas fa-arrow-circle-up fs-4 text-success"></i>
+											</c:when>
+											<c:otherwise>
+												<i title="Borrar"
+													class="fas fa-minus-square fs-4 text-danger"></i>
+											</c:otherwise>
+										</c:choose>
+								</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -172,41 +182,13 @@
 									href="/TP003-LPC/itinerario.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>"
 									title="Ver itinerario de <c:out value="${usuario.nombre}"></c:out>"><i
 										class="far fa-map fs-4 text-info"></i> </a> <a
-									href="/TP003-LPC/usuario/edit.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>"
-									title="Editar"> <i
+									href="/TP003-LPC/usuario/edit.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>" title="Editar"> <i
 										class="fas fa-pen-square fs-4 text-warning"></i>
 								</a> <a href="/TP003-LPC/usuario/delete.do?usuarioId=<c:out value="${usuario.nombre}"></c:out>" title="Borrar"><i
 										class="fas fa-minus-square fs-4 text-danger"></i></a></td>
 							</tr>
 						</c:forEach>
-						<!-- tr>
-							<td><img src="/TP003-LPC/assets/img/bilbo.jpg" class="avatar" /></td>
-							<td><b>Bilbo</b></td>
-							<td>$ 200</td>
-							<td>10 hs.</td>
-							<td><span class="badge rounded-pill pill-pai">
-									PAISAJE</span></td>
 
-							<td>NO</td>
-
-							<td><a href="#" title="Ver itinerario de Bilbo"><i class="far fa-map fs-4 text-info" ></i> </a>
-									<a href="#" title="Editar"><i class="fas fa-pen-square fs-4 text-warning"></i> </a> 
-									<a href="#" title="Borrar"><i class="fas fa-minus-square fs-4 text-danger"></i></a></td>
-						</tr>
-						<tr>
-							<td><img src="/TP003-LPC/assets/img/radagast.jpg" class="avatar" /></td>
-							<td><b>Radagast</b></td>
-							<td>$ 100</td>
-							<td>2 hs.</td>
-							<td><span class="badge rounded-pill pill-deg">
-									DEGUSTACION</span></td>
-
-							<td>NO</td>
-
-							<td><a href="#" title="Ver itinerario de Radagast"><i class="far fa-map fs-4 text-info"></i> </a>
-									<a href="#" title="Editar"><i class="fas fa-pen-square fs-4 text-warning"></i> </a> 
-									<a href="#" title="Borrar"><i class="fas fa-minus-square fs-4 text-danger"></i></a></td>
-						</tr-->
 					</tbody>
 				</table>
 			</div>

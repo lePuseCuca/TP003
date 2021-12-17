@@ -44,12 +44,15 @@ public class CreateAttractionServlet extends HttpServlet {
 		Tipo tipo = Tipo.valueOf(req.getParameter("tipo"));
 		// Boolean disponible = Boolean.parseBoolean(req.getParameter("disponible"));
 		Boolean disponible = true;
+		Atraccion atraccion = null;
+
+
+		String error = null;
 
 		try {
-
-			if (attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible) != 1)
+			if (attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible) != 1) 
 				resp.sendRedirect("/TP003-LPC/admin.do");
-
+			//System.out.println(attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible));
 		} catch (ErrorDatosException e) {
 			req.setAttribute("error", "Los datos ingresados no son correctos.");
 
@@ -57,6 +60,20 @@ public class CreateAttractionServlet extends HttpServlet {
 			dispatcher.forward(req, resp);
 			e.printStackTrace();
 		}
+
+		/*
+		 * try { atraccion = attractionService.create(id, nombre, tiempo, costo, cupo,
+		 * tipo, disponible); } catch (ErrorDatosException e) { error =
+		 * "Los datos ingresados no son correctos."; e.printStackTrace(); }
+		 * 
+		 * // if (attraction.isValid()) { if (atraccion != null) {
+		 * resp.sendRedirect("/TP003-LPC/adminListProducts.do"); } else {
+		 * req.setAttribute("error", error);
+		 * 
+		 * RequestDispatcher dispatcher =
+		 * getServletContext().getRequestDispatcher("/views/admin/atraccionalta.jsp");
+		 * dispatcher.forward(req, resp); }
+		 */
 
 	}
 
