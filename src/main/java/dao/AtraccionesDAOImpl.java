@@ -86,8 +86,28 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 			statement.setDouble(2, atr.getTiempo());
 			statement.setDouble(3, atr.getCosto());
 			statement.setInt(4, atr.getCupo());
-			statement.setObject(4, atr.getTipo());
-			statement.setString(5, atr.getId());
+			statement.setObject(5, atr.getTipo());
+			statement.setString(6, atr.getId());
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	
+	
+	@Override
+	public int updateStatus(Atraccion atr) {
+		try {
+			String sql = "UPDATE atracciones SET disponible = ((disponible | 1) - (disponible & 1)) WHERE id = ?";
+			//String sql = "UPDATE ATRACCIONES SET DISPONIBLE = ? WHERE ID = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			
+			statement.setString(1, atr.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -99,7 +119,6 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	@Override
 	public int delete(Atraccion atr) {
 		try {
-			//String sql = "DELETE FROM ATRACCIONES WHERE ID = ?";
 			String sql = "UPDATE ATRACCIONES SET DISPONIBLE = ? WHERE ID = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
