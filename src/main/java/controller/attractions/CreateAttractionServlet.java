@@ -35,35 +35,27 @@ public class CreateAttractionServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// El ID SE AUTOGENERA?? COMO SE HACE CON ESO??
+		// El ID SE AUTOGENERA??
 		String id = req.getParameter("id");
 		String nombre = req.getParameter("nombre");
 		Double tiempo = Double.parseDouble(req.getParameter("tiempo"));
 		Double costo = Double.parseDouble(req.getParameter("costo"));
 		Integer cupo = Integer.parseInt(req.getParameter("cupo"));
-		// COMO CONFIGURO EL ENUM?? ESTA OK??
 		Tipo tipo = Tipo.valueOf(req.getParameter("tipo"));
 		// Boolean disponible = Boolean.parseBoolean(req.getParameter("disponible"));
 		Boolean disponible = true;
 
-		Atraccion atraccion = null;
-		String error = null;
-
 		try {
-			atraccion = attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible);
-		} catch (ErrorDatosException e) {
-			error = "Los datos ingresados no son correctos.";
-			e.printStackTrace();
-		}
 
-		// if (attraction.isValid()) {
-		if (atraccion != null) {
-			resp.sendRedirect("/TP003-LPC/adminListProducts.do");
-		} else {
-			req.setAttribute("error", error);
+			if (attractionService.create(id, nombre, tiempo, costo, cupo, tipo, disponible) != 1)
+				resp.sendRedirect("/TP003-LPC/admin.do");
+
+		} catch (ErrorDatosException e) {
+			req.setAttribute("error", "Los datos ingresados no son correctos.");
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/atraccionalta.jsp");
 			dispatcher.forward(req, resp);
+			e.printStackTrace();
 		}
 
 	}
