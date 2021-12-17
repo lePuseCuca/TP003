@@ -30,7 +30,7 @@ public class EditUserServlet extends HttpServlet implements Servlet {
 		
 		Usuario usuario = this.userService.find(req.getParameter("usuarioId"));
 		
-		req.setAttribute("usuario", usuario);
+		req.setAttribute("usuarioEditar", usuario);
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/usuariomodificar.jsp");
 		dispatcher.forward(req, resp);

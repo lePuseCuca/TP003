@@ -39,7 +39,7 @@ public class AdminServlet extends HttpServlet implements Servlet {
 		List<Atraccion> atracciones = this.attractionService.list();
 		req.setAttribute("atracciones", atracciones);
 
-		List<Promocion> promociones = this.promotionService.list(this.attractionService.map());
+		List<Promocion> promociones = this.promotionService.listAll(this.attractionService.mapAll());
 		req.setAttribute("promociones", promociones);
 		
 		List<Usuario> usuarios = usuarioService.list();

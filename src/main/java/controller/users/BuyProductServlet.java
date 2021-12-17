@@ -74,7 +74,7 @@ public class BuyProductServlet extends HttpServlet implements Servlet {
 		} else {
 			req.setAttribute("errors", errores);
 			req.setAttribute("flash", "No ha podido realizarse la compra");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("listProducts.do");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listProducts.do");
 			dispatcher.forward(req, resp);
 		}
 

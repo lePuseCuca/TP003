@@ -33,7 +33,8 @@ public class UserService {
 	public int delete(String usuarioId) {
 		return this.gestorUsuarios.delete(this.find(usuarioId));
 	}
-
+	
+	//Usuario necesita ID porque nombre esta como PK en tabla usuarios y como FK en itinerarios.
 	public int edit(Usuario usuario, String nombre, Double monedas, Double tiempo, 
 			Tipo tipoPreferido, String clave, Boolean isAdmin) {
 		

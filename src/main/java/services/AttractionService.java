@@ -15,11 +15,15 @@ public class AttractionService {
 	private AtraccionesDAO gestorAtracciones = DAOFactory.getAtraccionesDAO();
 	
 	public List<Atraccion> list() {
-		return new LinkedList<Atraccion>(this.gestorAtracciones.findAllAtracciones().values());
+		return new LinkedList<Atraccion>(this.gestorAtracciones.mapAll().values());
 	}
 	
 	public Map<String, Atraccion> map() {
 		return this.gestorAtracciones.findAllAtracciones();
+	}
+	
+	public Map<String, Atraccion> mapAll() {
+		return this.gestorAtracciones.mapAll();
 	}
 
 	public int create(String id, String nombre, double tiempo, double costo, int cupo, Tipo tipo,
@@ -31,6 +35,10 @@ public class AttractionService {
 	public int update(String id, String nombre, double tiempo, double costo, int cupo, Tipo tipo,
 			boolean disponible) throws ErrorDatosException {
 		Atraccion atraccion = new Atraccion(id, nombre, tiempo, costo, cupo, tipo, disponible);
+		return this.gestorAtracciones.update(atraccion);
+	}
+	
+	public int update(Atraccion atraccion) {
 		return this.gestorAtracciones.update(atraccion);
 	}
 	
