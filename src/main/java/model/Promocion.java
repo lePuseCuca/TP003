@@ -9,15 +9,20 @@ public class Promocion extends Producto{
 	
 	public Promocion() {};
 	
-	public Promocion(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo) {
+	public Promocion(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, boolean disponible) {
 		super(id, nombre, tipo);
 		this.atracciones = atracciones;
 		this.tiempo = setTiempo(atracciones);		
 		this.tipoPromocion = tipoPromo;
+		this.disponible = disponible;
 	}
 	
 	public List<Atraccion> getAtracciones(){
 		return this.atracciones;
+	}
+	
+	public boolean getDisponible() {
+		return this.disponible;
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ public abstract class Producto {
 	protected double costo;
 	protected double tiempo;
 	protected Tipo tipo;
+	protected boolean disponible;
 	
 	public Producto() {}
 	
