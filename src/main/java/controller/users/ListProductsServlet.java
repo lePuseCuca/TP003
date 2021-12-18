@@ -38,13 +38,14 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 		this.productService = new ProductService(
 				this.attractionService.map(), 
 				this.promotionService.list(this.attractionService.map()));
-		this.itineraryService = new ItineraryService(this.productService.getProductos());
+		this.itineraryService = new ItineraryService(this.productService.getProductos());		
 		this.comparatorService = new ComparatorService();
 	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		this.destroy();
+		this.init();
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 		
 		Itinerario it = this.itineraryService.getItinerario(usuario.getNombre());
@@ -56,4 +57,5 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/usuario/index.jsp");
 		dispatcher.forward(req, resp);
 	}
+
 }
