@@ -15,6 +15,7 @@ public class PromocionPorcentual extends Promocion {
 			throw new ErrorDatosException("Datos con valor negativo");
 	}
 	
+	@Override
 	public double getDescuento() {
 		return this.descuento;
 	}

@@ -34,6 +34,10 @@ public class Promocion extends Producto{
 		return this.tipoPromocion;
 	}
 	
+	public double getDescuento() {
+		return 0;
+	}
+	
 	protected void setCosto() {
 		double costoTotal = 0;
 		for(Atraccion atr : atracciones)
