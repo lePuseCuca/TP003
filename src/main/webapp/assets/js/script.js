@@ -54,94 +54,28 @@ const atracciones = {
     }
 }
 
-const $atraccionesContainer = document.querySelector('#atracciones');
+const $tipoSelect = document.querySelector('#tipo');
+const $tipoPromoSelect = document.querySelector('#tipo-promocion');
+const $checkContainer = document.querySelector('#check-container');
+const $atraccionesCheck = document.querySelectorAll('.form-check-input');
+const $promoEspecialValue = document.querySelectorAll('[data-tipo-promo]');
+const $promoEspecialContainer = document.querySelectorAll('.tipo-promo');
 
-function createAtraccion(atraccion) {
-    const $atraccion = document.createElement('div');
-    $atraccion.className = 'col-lg-3 col-md-6 col-sm-12';
-    $atraccion.innerHTML = `
-    <div class="card text-center">
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img src="imgs/${atraccion.replace(" ", "_").replace(" ", "_")}.jpg" class="img-fluid" />
-            <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-            </a>
-            
-        </div>
-        <div class="card-header"><span class="badge rounded-pill pill-${atracciones[atraccion].tipo.substr(0, 3).toLocaleLowerCase()}">${atracciones[atraccion].tipo}</span></div>
-        <div class="card-body">
-            <h5 class="card-title">${atraccion}</h5>
-            <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error vel in nisi magnam neque ducimus sapiente aliquam pariatur nostrum ab?
-            </p>
-            <div style="font-size: 1.2rem;">
-            <span class="badge bg-info"><i class="fas fa-coins"></i> $ ${atracciones[atraccion].costo}</span>
-            <span class="badge bg-info"><i class="fas fa-clock"></i> ${atracciones[atraccion].tiempo} hs.</span>
-            <a href="#" ><span class="badge bg-success">COMPRAR</span></a>
-            <!--button type="button" href="#" class="btn btn-success"
-                                data-mdb-ripple-color="dark">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button-->
-            </div>
-            <!--button type="button" class="btn btn-info btn-lg"><i class="fas fa-coins"></i> $ ${atracciones[atraccion].costo}</button>
-            <button type="button" class="btn btn-info btn-lg"><i class="fas fa-clock"></i> ${atracciones[atraccion].tiempo} hs.</button-->    
-        </div>
-    </div>
-    `;
-    return $atraccion;
-}
+//Object.keys(atracciones).forEach(key => {
+//    $checkContainer.appendChild(createCheckItem(key));    
+//});
 
-Object.keys(atracciones).forEach(key => {
-    $atraccionesContainer.appendChild(createAtraccion(key));
-});
+$tipoSelect.addEventListener('change', (e) => {
+    $atraccionesCheck.forEach(element => {
+        element.checked = false;
+        (element.dataset.tipoAtr == e.target.value) ? element.disabled = false : element.disabled = true;
+    });
+})
 
-function loadAtracciones() {
-
-}
-/* 
-<div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="card text-center ">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" class="img-fluid" />
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                            </a>
-                        </div>
-                        <div class="card-header"><span class="badge rounded-pill pill-ave">Aventura</span></div>
-                        <div class="card-body">
-                            <h5 class="card-title">Bosque Negro</h5>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Error vel in nisi magnam neque ducimus sapiente aliquam pariatur nostrum ab?
-                            </p>
-                            <button type="button" class="btn btn-info"><i class="fas fa-info"></i></button>
-                            <button type="button" class="btn btn-success"><i class="fas fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                </div>
-*/
-
-
-// document.querySelector('#itinerario').addEventListener('click', function () {
-//     document.querySelector("main").classList.toggle("hidden");
-//     document.querySelector("#itinerario-container").classList.toggle("hidden");
-// });
-
-const sequencyCount = (arr) => {
-    let count = 0;
-    let max = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] == arr[i + 1]) {
-            count++;
-
-        } else {
-            if (count > max) {
-                max = ++count;
-
-            }
-            count = 0;
-        }
-    }
-    return max;
-};
-
-console.log(sequencyCount([true, true, true, true, true, false, true, true, true, true, true, true, false, false, false]))
+$tipoPromoSelect.addEventListener('change', (e) => {
+    console.log(e.target.value);
+    $promoEspecialContainer.forEach(element => {
+        element.checked = false;
+        (element.dataset.tipoPromo == e.target.value) ? element.children[1].disabled = false : element.children[1].disabled = true;
+    });
+})
