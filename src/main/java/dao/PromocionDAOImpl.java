@@ -40,7 +40,33 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 	@Override
 	public int insert(Promocion promo) {
-		return 0;
+		int resultado = 0;
+		switch (promo.getTipoPromocion().name()) {
+			case "PORCENTUAL":
+				try {
+					String sql = "INSERT INTO promociones (id, nombre, tipo_promocion, tipo_atracciones, descuento, disponible) VALUES (?, ?, ?, ?, ?, 1)";
+					Connection conn = ConnectionProvider.getConnection();
+
+					PreparedStatement statement = conn.prepareStatement(sql);
+					statement.setString(1, promo.getId());
+					statement.setString(2, promo.getNombre());
+					statement.setObject(3, promo.getTipoPromocion());
+					statement.setObject(4, promo.getTipo());
+					statement.setDouble(5, promo.getDescuento());					
+					resultado = statement.executeUpdate();
+					if (resultado > 0)
+						for (Atraccion atr : promo.getAtracciones())
+							resultado += this.insertAtraccionPromo(promo.getId(), atr.getId());	
+					
+				}catch (Exception e) {
+					throw new MissingDataException(e);
+				}
+				break;
+			default:
+				resultado = -1;
+		}
+	
+		return resultado;
 	}
 	
 	@Override
@@ -181,6 +207,25 @@ public class PromocionDAOImpl implements PromocionDAO {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+	
+	private int insertAtraccionPromo(String promoId, String atraccionId) {
+		int rows = 0;
+		try {
+			String sql = "INSERT INTO promocion_atracciones (id_promocion, id_atraccion) VALUES (?, ?)";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, promoId);
+			statement.setString(2, atraccionId);
+								
+			rows = statement.executeUpdate();
+
+			
+		}catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+		return rows; 
 	}
 
 	@Override
