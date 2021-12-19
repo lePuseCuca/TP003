@@ -9,44 +9,61 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ErrorDatosException;
 import services.AttractionService;
+import services.PromotionService;
 
 @WebServlet("/promocion/new.do")
 public class CreatePromotionServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = 7812151349602346751L;
 	private AttractionService attractionService;
-	
+	private PromotionService promotionService;
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		this.attractionService = new AttractionService();
+		this.promotionService = new PromotionService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		req.setAttribute("atraccionesLista", this.attractionService.map().values());
-		
+
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/promocionalta.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("include", "OK");
+
 		String tipoPromocion = req.getParameter("tipo-promocion");
-		
-		
+		req.getParameterValues("atracciones");
+
+		// FALTA mandar mensajes error via flash?!
 		if (!tipoPromocion.equals("default")) {
-			System.out.println("ENTRE");
-		}else {
+			switch (tipoPromocion) {
+			case "PORCENTUAL":
+				try {
+					this.promotionService.createPromoPorcentual(req.getParameter("id"), req.getParameter("nombre"),
+							tipoPromocion, req.getParameter("tipo"), Double.parseDouble(req.getParameter("descuento")),
+							req.getParameterValues("atracciones"));
+				} catch (ErrorDatosException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			req.setAttribute("flash", "Promocion agregada correctamente");
+
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin.do");
+			dispatcher.forward(req, resp);
+		} else {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/promocionalta.jsp");
-			System.out.println(tipoPromocion);
+			req.setAttribute("errorTipoPromo", "Debe seleccionar un tipo de promocion.");
 			dispatcher.include(req, resp);
 		}
 	}
-	
-	
 
 }
