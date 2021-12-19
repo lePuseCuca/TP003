@@ -44,6 +44,8 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.destroy();
+		this.init();
 		
 		Usuario usuario = (Usuario) req.getSession().getAttribute("usuario");
 		
@@ -56,4 +58,6 @@ public class ListProductsServlet extends HttpServlet implements Servlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/usuario/index.jsp");
 		dispatcher.forward(req, resp);
 	}
+	
+	
 }
