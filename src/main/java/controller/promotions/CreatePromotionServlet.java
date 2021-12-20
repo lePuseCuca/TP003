@@ -54,10 +54,26 @@ public class CreatePromotionServlet extends HttpServlet implements Servlet {
 		}
 		if (tipoPromocion.equals("ABSOLUTA")) {
 			try {
-				System.out.println(req.getParameter("costo"));
+				
 				this.promotionService.createPromoAbsoluta(req.getParameter("id"), req.getParameter("nombre"),
 						tipoPromocion, req.getParameter("tipo"), Double.parseDouble(req.getParameter("costo")),
 						req.getParameterValues("atracciones"));
+			} catch (ErrorDatosException e) {
+				e.printStackTrace();
+			}
+
+		}
+		
+		if (tipoPromocion.equals("AxB")) {
+			try {
+				
+				this.promotionService.createPromoAXB(
+						req.getParameter("id"), 
+						req.getParameter("nombre"),
+						tipoPromocion, 
+						req.getParameter("tipo"),						
+						req.getParameterValues("atracciones"),
+						req.getParameter("gratis"));
 			} catch (ErrorDatosException e) {
 				e.printStackTrace();
 			}

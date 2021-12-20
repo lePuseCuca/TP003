@@ -11,6 +11,7 @@ import model.Atraccion;
 import model.ErrorDatosException;
 import model.Promocion;
 import model.PromocionAbsoluta;
+import model.PromocionAxB;
 import model.PromocionPorcentual;
 import model.Tipo;
 import model.TipoPromocion;
@@ -40,8 +41,17 @@ public class PromotionService {
 	public int createPromoAbsoluta(String id, String nombre, String tipoPromo, String tipo, double costo, String[] atraccionesPromo) throws ErrorDatosException {
 		int resultado = 0;
 		List<Atraccion> atracciones = this.listarAtracciones(atraccionesPromo);
-		//public PromocionAbsoluta(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, double costo, boolean disponible) throws ErrorDatosException {
+		
 		resultado = this.gestorPromociones.insert(new PromocionAbsoluta(id, nombre, TipoPromocion.valueOf(tipoPromo), atracciones, Tipo.valueOf(tipo), costo, true));
+				
+		return resultado;
+	}
+	
+	public int createPromoAXB(String id, String nombre, String tipoPromo, String tipo, String[] atraccionesPromo, String promoGratisID) throws ErrorDatosException {
+		int resultado = 0;
+		List<Atraccion> atracciones = this.listarAtracciones(atraccionesPromo);
+		
+		resultado = this.gestorPromociones.insert(new PromocionAxB(id, nombre, TipoPromocion.valueOf(tipoPromo), atracciones, this.gestorAtracciones.findAtraccionById(promoGratisID), Tipo.valueOf(tipo), true));
 				
 		return resultado;
 	}

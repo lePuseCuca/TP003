@@ -38,6 +38,10 @@ public class Promocion extends Producto{
 		return 0;
 	}
 	
+	public Atraccion getAtraccionSinCargo() {
+		return null;
+	}
+	
 	protected void setCosto() {
 		double costoTotal = 0;
 		for(Atraccion atr : atracciones)
@@ -52,13 +56,6 @@ public class Promocion extends Producto{
 		return true;
 	}
 	
-	private double setTiempo(List<Atraccion> atracciones) {
-		double tiempoTotal = 0;		
-		for (Atraccion at: atracciones)
-			tiempoTotal += at.getTiempo();		
-		return tiempoTotal;
-	}
-
 	@Override
 	public boolean venderProducto() {
 		boolean vendible = true;
@@ -70,6 +67,14 @@ public class Promocion extends Producto{
 				atr.restarCupo();
 		return vendible;
 	}	
+	
+	private double setTiempo(List<Atraccion> atracciones) {
+		double tiempoTotal = 0;		
+		for (Atraccion at: atracciones)
+			tiempoTotal += at.getTiempo();		
+		return tiempoTotal;
+	}
+
 	
 		
 	

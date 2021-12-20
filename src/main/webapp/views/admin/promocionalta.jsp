@@ -37,7 +37,7 @@
 						<option value="default">Elija tipo de Promocion</option>
 						<option value="PORCENTUAL">Porcentual</option>
 						<option value="ABSOLUTA">Absoluta</option>
-						<option value="AXB">AxB</option>
+						<option value="AxB">AxB</option>
 					</select>
 				</div>
 
@@ -51,7 +51,7 @@
 						id="costo" class="form-control" placeholder="" value="" disabled
 						required></input>
 				</div>
-				<div class="form-group mb-3 tipo-promo" data-tipo-promo="AXB">
+				<div class="form-group mb-3 tipo-promo" data-tipo-promo="AxB">
 					<label for="costo">Atraccion sin cargo</label> <input type="text"
 						name="gratis" id="gratis" class="form-control" placeholder=""
 						value="" disabled></input>
@@ -80,7 +80,7 @@
 									disabled> <label class="form-check-label"
 									for="check<c:out value="${atraccion.id}"></c:out>"> <span
 									class="badge rounded-pill pill-<c:out value="${fn:toLowerCase(fn:substring(atraccion.tipo, 0, 3))}"></c:out>">
-										<c:out value="${atraccion.nombre}"></c:out>
+										<c:out value="${atraccion.nombre}"></c:out> [ <c:out value="${atraccion.id}"></c:out> ]
 								</span>
 								</label>
 							</div>

@@ -82,6 +82,27 @@ public class PromocionDAOImpl implements PromocionDAO {
 					throw new MissingDataException(e);
 				}
 				break;
+			case "AxB":
+				try {
+					String sql = "INSERT INTO promociones (id, nombre, tipo_promocion, tipo_atracciones, descuento, disponible) VALUES (?, ?, ?, ?, ?, 1)";
+					Connection conn = ConnectionProvider.getConnection();
+
+					PreparedStatement statement = conn.prepareStatement(sql);
+					statement.setString(1, promo.getId());
+					statement.setString(2, promo.getNombre());
+					statement.setObject(3, promo.getTipoPromocion());
+					statement.setObject(4, promo.getTipo());
+					statement.setString(5, promo.getAtraccionSinCargo().getId());					
+					resultado = statement.executeUpdate();
+					if (resultado > 0)
+						for (Atraccion atr : promo.getAtracciones())
+							resultado += this.insertAtraccionPromo(promo.getId(), atr.getId());	
+					
+				}catch (Exception e) {
+					throw new MissingDataException(e);
+				}
+				break;
+
 			default:
 				resultado = -1;
 		}
