@@ -13,7 +13,7 @@ public class PromocionAxB extends Promocion {
 		super(id, nombre, tipoPromo, atracciones, tipo, disponible);
 		this.atraccionSinCargo = atraccionSinCargo;		
 		this.tiempo += atraccionSinCargo.getTiempo();
-		super.setCosto();
+		this.setCosto();
 	}
 	
 	public String toString() {
@@ -28,8 +28,16 @@ public class PromocionAxB extends Promocion {
 	@Override
 	public List<Atraccion> getAtracciones(){
 		List<Atraccion> temp = new ArrayList<Atraccion>(this.atracciones);
-		temp.add(this.atraccionSinCargo);
 		return temp;
+	}
+	
+	@Override
+	public void setCosto() {
+		double costoTotal = 0;
+		for(Atraccion atr : atracciones)
+			costoTotal += atr.getCosto();
+		
+		this.costo = costoTotal - this.atraccionSinCargo.getCosto();
 	}
 	
 	@Override
