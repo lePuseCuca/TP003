@@ -10,6 +10,7 @@ import dao.PromocionDAO;
 import model.Atraccion;
 import model.ErrorDatosException;
 import model.Promocion;
+import model.PromocionAbsoluta;
 import model.PromocionPorcentual;
 import model.Tipo;
 import model.TipoPromocion;
@@ -29,15 +30,29 @@ public class PromotionService {
 	
 	public int createPromoPorcentual(String id, String nombre, String tipoPromo, String tipo, double descuento, String[] atraccionesPromo) throws ErrorDatosException {
 		int resultado = 0;
-		List<Atraccion> atracciones = new LinkedList<Atraccion>();
-		for(String atrID : atraccionesPromo) {
-			atracciones.add(this.gestorAtracciones.findAtraccionById(atrID));
-		}
+		List<Atraccion> atracciones = this.listarAtracciones(atraccionesPromo);
 		
 		resultado = this.gestorPromociones.insert(new PromocionPorcentual(id, nombre, TipoPromocion.valueOf(tipoPromo), atracciones, Tipo.valueOf(tipo), descuento, true));
 				
 		return resultado;
 	}	
+	
+	public int createPromoAbsoluta(String id, String nombre, String tipoPromo, String tipo, double costo, String[] atraccionesPromo) throws ErrorDatosException {
+		int resultado = 0;
+		List<Atraccion> atracciones = this.listarAtracciones(atraccionesPromo);
+		//public PromocionAbsoluta(String id, String nombre, TipoPromocion tipoPromo, List<Atraccion> atracciones, Tipo tipo, double costo, boolean disponible) throws ErrorDatosException {
+		resultado = this.gestorPromociones.insert(new PromocionAbsoluta(id, nombre, TipoPromocion.valueOf(tipoPromo), atracciones, Tipo.valueOf(tipo), costo, true));
+				
+		return resultado;
+	}
+	
+	private List<Atraccion> listarAtracciones(String[] atraccionesPromo){
+		List<Atraccion> atraccionesLista = new LinkedList<Atraccion>();
+		for(String atrID : atraccionesPromo) {
+			atraccionesLista.add(this.gestorAtracciones.findAtraccionById(atrID));
+		}
+		return atraccionesLista;
+	}
 	
 
 }

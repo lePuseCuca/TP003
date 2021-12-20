@@ -43,27 +43,37 @@ public class CreatePromotionServlet extends HttpServlet implements Servlet {
 		req.getParameterValues("atracciones");
 
 		// FALTA mandar mensajes error via flash?!
-		if (!tipoPromocion.equals("default")) {
-			switch (tipoPromocion) {
-			case "PORCENTUAL":
-				try {
-					this.promotionService.createPromoPorcentual(req.getParameter("id"), req.getParameter("nombre"),
-							tipoPromocion, req.getParameter("tipo"), Double.parseDouble(req.getParameter("descuento")),
-							req.getParameterValues("atracciones"));
-				} catch (ErrorDatosException e) {
-					e.printStackTrace();
-				}
-				break;
+		if (tipoPromocion.equals("PORCENTUAL")) {
+			try {
+				this.promotionService.createPromoPorcentual(req.getParameter("id"), req.getParameter("nombre"),
+						tipoPromocion, req.getParameter("tipo"), Double.parseDouble(req.getParameter("descuento")),
+						req.getParameterValues("atracciones"));
+			} catch (ErrorDatosException e) {
+				e.printStackTrace();
 			}
-			req.setAttribute("flash", "Promocion agregada correctamente");
-
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin.do");
-			dispatcher.forward(req, resp);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/admin/promocionalta.jsp");
-			req.setAttribute("errorTipoPromo", "Debe seleccionar un tipo de promocion.");
-			dispatcher.include(req, resp);
 		}
+		if (tipoPromocion.equals("ABSOLUTA")) {
+			try {
+				System.out.println(req.getParameter("costo"));
+				this.promotionService.createPromoAbsoluta(req.getParameter("id"), req.getParameter("nombre"),
+						tipoPromocion, req.getParameter("tipo"), Double.parseDouble(req.getParameter("costo")),
+						req.getParameterValues("atracciones"));
+			} catch (ErrorDatosException e) {
+				e.printStackTrace();
+			}
+
+		}
+		// req.setAttribute("flash", "Promocion agregada correctamente");
+		resp.sendRedirect("/TP003-LPC/admin.do");
+		// RequestDispatcher dispatcher =
+		// getServletContext().getRequestDispatcher("/admin.do");
+		// dispatcher.forward(req, resp);
+		// } else {
+		// RequestDispatcher dispatcher =
+		// getServletContext().getRequestDispatcher("/views/admin/promocionalta.jsp");
+//			req.setAttribute("errorTipoPromo", "Debe seleccionar un tipo de promocion.");
+//			dispatcher.include(req, resp);
+		// }
 	}
 
 }
